@@ -135,10 +135,17 @@
   "insufficient_data": false,
   "fallback": true,
   "notes": [
-    "AI_ANALYSIS_UNAVAILABLE: AI 호출에 실패하거나 응답이 지연되어 미리 작성된 P002 시연용 분석 결과를 표시합니다.",
-    "이 분석은 고정된 수동 작성 결과이며 실시간 AI 분석이나 최신 DB 재집계가 아닙니다.",
-    "categories는 고객 선택 사유(return_type_code)의 집계이며, AI가 return_detail_text를 직접 분류한 결과가 아닙니다.",
-    "범주별 백분율 합계는 개별 반올림으로 100%와 약간 다를 수 있습니다.",
-    "size_color_findings는 반품 건수의 사이즈별 분포이며, 주문 건수를 분모로 한 사이즈별 반품률이 아닙니다."
+    {
+      "code": "NOT_COMPUTABLE",
+      "message": "LLM을 정상 호출하지 못해 실시간 AI 분류를 수행하지 않았습니다. 사전 수동 검토된 P002 고정 분석 예시를 표시합니다. 이 데이터는 최신 DB 집계가 아닙니다."
+    },
+    {
+      "code": "NOT_COMPUTABLE",
+      "message": "categories는 고객이 선택한 반품 사유(return_type_code)의 집계입니다. AI가 반품 상세 문장(return_detail_text)을 직접 분류한 결과와 구분해야 합니다."
+    },
+    {
+      "code": "NOT_COMPUTABLE",
+      "message": "size_color_findings는 반품 57건의 사이즈별 분포입니다. 사이즈별 전체 주문 건수가 없어 사이즈별 반품률이나 집중 여부는 확정할 수 없습니다."
+    }
   ]
 }
