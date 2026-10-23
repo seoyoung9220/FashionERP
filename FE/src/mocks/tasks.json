@@ -1,0 +1,72 @@
+{
+  "items": [
+    {
+      "task_id": "T0001",
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "title": "상품 페이지에 부위별 실측 치수 추가 (허리·골반·품·기장)",
+      "type": "PAGE_FIX",
+      "type_label": "상품 페이지 개선",
+      "assignee": "윤지",
+      "due_date": "2026-10-27",
+      "status": "IN_PROGRESS",
+      "status_label": "진행 중",
+      "created_at": "2026-10-24",
+      "source": {
+        "type": "RETURN_ANALYSIS",
+        "ref": "P002"
+      }
+    },
+    {
+      "task_id": "T0002",
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "title": "다음 샘플 제작 전 허리·골반 대비 품 비율 검토",
+      "type": "PRODUCT_FIX",
+      "type_label": "실제 상품 수정",
+      "assignee": "시환",
+      "due_date": "2026-11-07",
+      "status": "PENDING",
+      "status_label": "대기",
+      "created_at": "2026-10-24",
+      "source": {
+        "type": "RETURN_ANALYSIS",
+        "ref": "P002"
+      }
+    },
+    {
+      "task_id": "T0003",
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "title": "성수봉제에 봉제 불량 전달 후 다음 입고 검수 기준 확인",
+      "type": "PRODUCT_FIX",
+      "type_label": "실제 상품 수정",
+      "assignee": "태연",
+      "due_date": "2026-10-30",
+      "status": "PENDING",
+      "status_label": "대기",
+      "created_at": "2026-10-24",
+      "source": {
+        "type": "DEFECT_SPIKE",
+        "ref": "PO2026-1012-01"
+      }
+    },
+    {
+      "task_id": "T0004",
+      "product_id": "P007",
+      "product_name": "심플 로고 맨투맨",
+      "title": "원가 대비 판매가 재검토 — 기여이익 음수",
+      "type": "PRODUCT_FIX",
+      "type_label": "실제 상품 수정",
+      "assignee": "서영",
+      "due_date": "2026-10-26",
+      "status": "ON_HOLD",
+      "status_label": "보류",
+      "created_at": "2026-10-24",
+      "source": {
+        "type": "MANUAL",
+        "ref": null
+      }
+    }
+  ]
+}

@@ -359,6 +359,7 @@ FashionERP/
 | [FE/README.md](./FE/README.md) | 윤지 | 화면 목록, 공통 컴포넌트, FE 규칙 |
 | [BE/README.md](./BE/README.md) | 태연 | 테이블 8개, 실행 방법 |
 | [BE/docs/api.md](./BE/docs/api.md) | 태연 | **API 명세** — 요청·응답 JSON 전체 |
+| [FE/src/mocks/README.md](./FE/src/mocks/README.md) | 태연 | **mock 응답 10개** + 가정값 (시환 CSV 참고용) |
 | [AI/README.md](./AI/README.md) | 서영·예나 | AI 입출력 스키마, 금지 사항, 폴백 |
 | [AI/schemas/return-analysis.schema.json](./AI/schemas/return-analysis.schema.json) | 서영 | AI 출력 JSON Schema |
 | [AI/prompts/return-analysis.md](./AI/prompts/return-analysis.md) | 서영 | **반품 분석 프롬프트** — System 프롬프트, 입력 템플릿, 기대 출력 |

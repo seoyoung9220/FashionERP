@@ -165,7 +165,7 @@ LLM 호출이 실패·지연되면 `fallback/returns-analyze.json`을 **200으�
 - 백엔드는 LLM 예외를 잡아 이 파일을 그대로 반환
 
 > **이게 시연 보험입니다.** 다른 AI 작업보다 먼저 끝내세요. 심사 중 네트워크나 API가 불안정해도 데모가 끝까지 돌아갑니다.
-> 이 파일은 `FE/src/mocks/returns-analyze.json`과 내용이 같아도 됩니다.
+> [`FE/src/mocks/returns-analyze.json`](../FE/src/mocks/returns-analyze.json)에 **이미 P002 분석 결과가 들어 있습니다.** 그대로 복사하고 `"fallback": true`로 바꾸면 끝납니다.
 
 ## 역할 분담
 

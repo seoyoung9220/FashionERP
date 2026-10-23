@@ -1,0 +1,446 @@
+{
+  "as_of": "2026-10-24",
+  "group_by": "po",
+  "items": [
+    {
+      "po_id": "PO2026-1012-01",
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "supplier_id": "S01",
+      "supplier_name": "성수봉제",
+      "received_at": "2026-10-12",
+      "received_qty": 50,
+      "inspected_qty": 50,
+      "defect_qty": 4,
+      "good_qty": 46,
+      "defect_rate_pct": 8.0,
+      "defect_loss_amount": 92000,
+      "prior_avg_pct": 3.0,
+      "spike_threshold_pct": 4.5,
+      "is_spike": true,
+      "defect_types": [
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 3,
+          "share_pct": 75.0
+        },
+        {
+          "code": "FINISH",
+          "label": "외관·마감",
+          "qty": 1,
+          "share_pct": 25.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 4,
+        "inspected_qty": 50,
+        "unit_cost": 23000,
+        "prior_defect_qty": 6,
+        "prior_inspected_qty": 200
+      },
+      "formula": "4 ÷ 50 × 100 = 8.0% · 이전 건 평균 3.0% × 1.5 = 4.5%",
+      "notes": []
+    },
+    {
+      "po_id": "PO2026-0210-01",
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "supplier_id": "S01",
+      "supplier_name": "성수봉제",
+      "received_at": "2026-02-10",
+      "received_qty": 120,
+      "inspected_qty": 120,
+      "defect_qty": 4,
+      "good_qty": 116,
+      "defect_rate_pct": 3.3,
+      "defect_loss_amount": 92000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 3,
+          "share_pct": 75.0
+        },
+        {
+          "code": "FINISH",
+          "label": "외관·마감",
+          "qty": 1,
+          "share_pct": 25.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 4,
+        "inspected_qty": 120,
+        "unit_cost": 23000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "4 ÷ 120 × 100 = 3.3% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "po_id": "PO2026-0618-01",
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "supplier_id": "S01",
+      "supplier_name": "성수봉제",
+      "received_at": "2026-06-18",
+      "received_qty": 80,
+      "inspected_qty": 80,
+      "defect_qty": 2,
+      "good_qty": 78,
+      "defect_rate_pct": 2.5,
+      "defect_loss_amount": 46000,
+      "prior_avg_pct": 3.3,
+      "spike_threshold_pct": 5.0,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 1,
+          "share_pct": 50.0
+        },
+        {
+          "code": "FABRIC",
+          "label": "원단·소재 결함",
+          "qty": 1,
+          "share_pct": 50.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 2,
+        "inspected_qty": 80,
+        "unit_cost": 23000,
+        "prior_defect_qty": 4,
+        "prior_inspected_qty": 120
+      },
+      "formula": "2 ÷ 80 × 100 = 2.5% · 이전 건 평균 3.3% × 1.5 = 5.0%",
+      "notes": []
+    },
+    {
+      "po_id": "PO2026-0915-01",
+      "product_id": "P004",
+      "product_name": "크롭 니트 가디건",
+      "supplier_id": "S03",
+      "supplier_name": "부산패브릭",
+      "received_at": "2026-09-15",
+      "received_qty": 236,
+      "inspected_qty": 236,
+      "defect_qty": 6,
+      "good_qty": 230,
+      "defect_rate_pct": 2.5,
+      "defect_loss_amount": 186000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 4,
+          "share_pct": 66.7
+        },
+        {
+          "code": "SIZING",
+          "label": "치수·사이즈 편차",
+          "qty": 2,
+          "share_pct": 33.3
+        }
+      ],
+      "inputs": {
+        "defect_qty": 6,
+        "inspected_qty": 236,
+        "unit_cost": 31000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "6 ÷ 236 × 100 = 2.5% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "po_id": "PO2026-0920-01",
+      "product_id": "P008",
+      "product_name": "기모 후드 집업",
+      "supplier_id": "S02",
+      "supplier_name": "동대문니트",
+      "received_at": "2026-09-20",
+      "received_qty": 235,
+      "inspected_qty": 235,
+      "defect_qty": 5,
+      "good_qty": 230,
+      "defect_rate_pct": 2.1,
+      "defect_loss_amount": 165000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 3,
+          "share_pct": 60.0
+        },
+        {
+          "code": "TRIM",
+          "label": "부자재·단추·지퍼",
+          "qty": 2,
+          "share_pct": 40.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 5,
+        "inspected_qty": 235,
+        "unit_cost": 33000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "5 ÷ 235 × 100 = 2.1% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "po_id": "PO2026-0820-01",
+      "product_id": "P003",
+      "product_name": "패딩 베스트",
+      "supplier_id": "S02",
+      "supplier_name": "동대문니트",
+      "received_at": "2026-08-20",
+      "received_qty": 306,
+      "inspected_qty": 306,
+      "defect_qty": 6,
+      "good_qty": 300,
+      "defect_rate_pct": 2.0,
+      "defect_loss_amount": 246000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "TRIM",
+          "label": "부자재·단추·지퍼",
+          "qty": 4,
+          "share_pct": 66.7
+        },
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 2,
+          "share_pct": 33.3
+        }
+      ],
+      "inputs": {
+        "defect_qty": 6,
+        "inspected_qty": 306,
+        "unit_cost": 41000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "6 ÷ 306 × 100 = 2.0% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "po_id": "PO2026-0905-01",
+      "product_id": "P001",
+      "product_name": "오버핏 울 코트",
+      "supplier_id": "S02",
+      "supplier_name": "동대문니트",
+      "received_at": "2026-09-05",
+      "received_qty": 260,
+      "inspected_qty": 260,
+      "defect_qty": 5,
+      "good_qty": 255,
+      "defect_rate_pct": 1.9,
+      "defect_loss_amount": 410000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "FABRIC",
+          "label": "원단·소재 결함",
+          "qty": 3,
+          "share_pct": 60.0
+        },
+        {
+          "code": "FINISH",
+          "label": "외관·마감",
+          "qty": 2,
+          "share_pct": 40.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 5,
+        "inspected_qty": 260,
+        "unit_cost": 82000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "5 ÷ 260 × 100 = 1.9% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "po_id": "PO2026-0902-01",
+      "product_id": "P005",
+      "product_name": "플리츠 롱스커트",
+      "supplier_id": "S03",
+      "supplier_name": "부산패브릭",
+      "received_at": "2026-09-02",
+      "received_qty": 275,
+      "inspected_qty": 275,
+      "defect_qty": 5,
+      "good_qty": 270,
+      "defect_rate_pct": 1.8,
+      "defect_loss_amount": 110000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "PRINT_DYE",
+          "label": "프린트·염색·색상",
+          "qty": 3,
+          "share_pct": 60.0
+        },
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 2,
+          "share_pct": 40.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 5,
+        "inspected_qty": 275,
+        "unit_cost": 22000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "5 ÷ 275 × 100 = 1.8% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "po_id": "PO2026-0825-01",
+      "product_id": "P006",
+      "product_name": "루즈핏 스웨트셔츠",
+      "supplier_id": "S01",
+      "supplier_name": "성수봉제",
+      "received_at": "2026-08-25",
+      "received_qty": 259,
+      "inspected_qty": 259,
+      "defect_qty": 4,
+      "good_qty": 255,
+      "defect_rate_pct": 1.5,
+      "defect_loss_amount": 76000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "STAIN",
+          "label": "오염·훼손",
+          "qty": 2,
+          "share_pct": 50.0
+        },
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 2,
+          "share_pct": 50.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 4,
+        "inspected_qty": 259,
+        "unit_cost": 19000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "4 ÷ 259 × 100 = 1.5% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "po_id": "PO2026-0910-01",
+      "product_id": "P007",
+      "product_name": "심플 로고 맨투맨",
+      "supplier_id": "S01",
+      "supplier_name": "성수봉제",
+      "received_at": "2026-09-10",
+      "received_qty": 274,
+      "inspected_qty": 274,
+      "defect_qty": 4,
+      "good_qty": 270,
+      "defect_rate_pct": 1.5,
+      "defect_loss_amount": 144000,
+      "prior_avg_pct": null,
+      "spike_threshold_pct": null,
+      "is_spike": false,
+      "defect_types": [
+        {
+          "code": "PRINT_DYE",
+          "label": "프린트·염색·색상",
+          "qty": 3,
+          "share_pct": 75.0
+        },
+        {
+          "code": "SEWING",
+          "label": "봉제·재봉",
+          "qty": 1,
+          "share_pct": 25.0
+        }
+      ],
+      "inputs": {
+        "defect_qty": 4,
+        "inspected_qty": 274,
+        "unit_cost": 36000,
+        "prior_defect_qty": 0,
+        "prior_inspected_qty": 0
+      },
+      "formula": "4 ÷ 274 × 100 = 1.5% · 이전 발주 건 없음",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    }
+  ]
+}

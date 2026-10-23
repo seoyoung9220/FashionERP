@@ -1,0 +1,170 @@
+{
+  "as_of": "2026-10-24",
+  "target_cover_days": 14,
+  "items": [
+    {
+      "product_id": "P001",
+      "product_name": "오버핏 울 코트",
+      "required_qty": 42,
+      "defect_adjusted_qty": 43,
+      "final_order_qty": 60,
+      "inputs": {
+        "avg_daily_sales": 2.1,
+        "lead_time_days": 21,
+        "target_cover_days": 14,
+        "stock_qty": 32,
+        "defect_rate_pct": 1.9,
+        "moq": 30
+      },
+      "formula": "2.1 × (21 + 14) = 73.5 → − 재고 32 = 41.5 → ÷ (1 − 0.019) = 42.3 → 올림 43 → MOQ 30 단위 올림 = 60",
+      "confidence": "MEDIUM",
+      "notes": []
+    },
+    {
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "required_qty": 20,
+      "defect_adjusted_qty": 20,
+      "final_order_qty": 50,
+      "inputs": {
+        "avg_daily_sales": 1.4,
+        "lead_time_days": 14,
+        "target_cover_days": 14,
+        "stock_qty": 20,
+        "defect_rate_pct": 4.0,
+        "moq": 50
+      },
+      "formula": "1.4 × (14 + 14) = 39.2 → − 재고 20 = 19.2 → ÷ (1 − 0.04) = 20.0 → 올림 20 → MOQ 50 단위 올림 = 50",
+      "confidence": "MEDIUM",
+      "notes": []
+    },
+    {
+      "product_id": "P005",
+      "product_name": "플리츠 롱스커트",
+      "required_qty": 5,
+      "defect_adjusted_qty": 5,
+      "final_order_qty": 50,
+      "inputs": {
+        "avg_daily_sales": 0.9,
+        "lead_time_days": 12,
+        "target_cover_days": 14,
+        "stock_qty": 19,
+        "defect_rate_pct": 1.8,
+        "moq": 50
+      },
+      "formula": "0.9 × (12 + 14) = 23.4 → − 재고 19 = 4.4 → ÷ (1 − 0.018) = 4.5 → 올림 5 → MOQ 50 단위 올림 = 50",
+      "confidence": "MEDIUM",
+      "notes": []
+    },
+    {
+      "product_id": "P004",
+      "product_name": "크롭 니트 가디건",
+      "required_qty": 6,
+      "defect_adjusted_qty": 6,
+      "final_order_qty": 40,
+      "inputs": {
+        "avg_daily_sales": 1.3,
+        "lead_time_days": 14,
+        "target_cover_days": 14,
+        "stock_qty": 31,
+        "defect_rate_pct": 2.5,
+        "moq": 40
+      },
+      "formula": "1.3 × (14 + 14) = 36.4 → − 재고 31 = 5.4 → ÷ (1 − 0.025) = 5.5 → 올림 6 → MOQ 40 단위 올림 = 40",
+      "confidence": "MEDIUM",
+      "notes": []
+    },
+    {
+      "product_id": "P003",
+      "product_name": "패딩 베스트",
+      "required_qty": 0,
+      "defect_adjusted_qty": 0,
+      "final_order_qty": 0,
+      "inputs": {
+        "avg_daily_sales": 0.7,
+        "lead_time_days": 18,
+        "target_cover_days": 14,
+        "stock_qty": 66,
+        "defect_rate_pct": 2.0,
+        "moq": 30
+      },
+      "formula": "0.7 × (18 + 14) = 22.4 → − 재고 66 = -43.6 → 발주 불필요",
+      "confidence": "MEDIUM",
+      "notes": [
+        {
+          "code": "LOW_CONFIDENCE",
+          "message": "추정 신뢰도 낮음"
+        }
+      ]
+    },
+    {
+      "product_id": "P006",
+      "product_name": "루즈핏 스웨트셔츠",
+      "required_qty": 0,
+      "defect_adjusted_qty": 0,
+      "final_order_qty": 0,
+      "inputs": {
+        "avg_daily_sales": 0.6,
+        "lead_time_days": 10,
+        "target_cover_days": 14,
+        "stock_qty": 17,
+        "defect_rate_pct": 1.5,
+        "moq": 50
+      },
+      "formula": "0.6 × (10 + 14) = 14.4 → − 재고 17 = -2.6 → 발주 불필요",
+      "confidence": "MEDIUM",
+      "notes": [
+        {
+          "code": "LOW_CONFIDENCE",
+          "message": "추정 신뢰도 낮음"
+        }
+      ]
+    },
+    {
+      "product_id": "P007",
+      "product_name": "심플 로고 맨투맨",
+      "required_qty": 0,
+      "defect_adjusted_qty": 0,
+      "final_order_qty": 0,
+      "inputs": {
+        "avg_daily_sales": 0.7,
+        "lead_time_days": 10,
+        "target_cover_days": 14,
+        "stock_qty": 17,
+        "defect_rate_pct": 1.5,
+        "moq": 50
+      },
+      "formula": "0.7 × (10 + 14) = 16.8 → − 재고 17 = -0.2 → 발주 불필요",
+      "confidence": "MEDIUM",
+      "notes": [
+        {
+          "code": "LOW_CONFIDENCE",
+          "message": "추정 신뢰도 낮음"
+        }
+      ]
+    },
+    {
+      "product_id": "P008",
+      "product_name": "기모 후드 집업",
+      "required_qty": 0,
+      "defect_adjusted_qty": 0,
+      "final_order_qty": 0,
+      "inputs": {
+        "avg_daily_sales": 0.6,
+        "lead_time_days": 14,
+        "target_cover_days": 14,
+        "stock_qty": 32,
+        "defect_rate_pct": 2.1,
+        "moq": 40
+      },
+      "formula": "0.6 × (14 + 14) = 16.8 → − 재고 32 = -15.2 → 발주 불필요",
+      "confidence": "MEDIUM",
+      "notes": [
+        {
+          "code": "LOW_CONFIDENCE",
+          "message": "추정 신뢰도 낮음"
+        }
+      ]
+    }
+  ]
+}

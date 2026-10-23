@@ -1,0 +1,75 @@
+{
+  "_comment": "에러 응답 예시 모음. FE 오류 처리 UI 개발용. 실제 엔드포인트가 아닙니다.",
+  "validation_failed": {
+    "error": {
+      "code": "VALIDATION_FAILED",
+      "message": "업로드 파일에서 3개 행의 오류를 발견했습니다",
+      "details": [
+        {
+          "file": "purchase_orders.csv",
+          "row": 14,
+          "column": "defect_qty",
+          "value": "-2",
+          "message": "수량은 0 이상의 정수여야 합니다"
+        },
+        {
+          "file": "purchase_orders.csv",
+          "row": 21,
+          "column": "inspected_qty",
+          "value": "500",
+          "message": "검수 수량이 입고 수량보다 많을 수 없습니다"
+        },
+        {
+          "file": "products.csv",
+          "row": 9,
+          "column": "product_id",
+          "value": "P099",
+          "message": "주문 데이터에 없는 상품 ID입니다"
+        }
+      ]
+    }
+  },
+  "missing_column": {
+    "error": {
+      "code": "VALIDATION_FAILED",
+      "message": "products.csv 에 필수 열이 없습니다: cost, moq",
+      "details": [
+        {
+          "file": "products.csv",
+          "row": 1,
+          "column": "cost",
+          "value": null,
+          "message": "필수 열이 없습니다"
+        },
+        {
+          "file": "products.csv",
+          "row": 1,
+          "column": "moq",
+          "value": null,
+          "message": "필수 열이 없습니다"
+        }
+      ]
+    }
+  },
+  "not_found": {
+    "error": {
+      "code": "NOT_FOUND",
+      "message": "상품 P099를 찾을 수 없습니다",
+      "details": []
+    }
+  },
+  "not_computable": {
+    "error": {
+      "code": "NOT_COMPUTABLE",
+      "message": "최근 7일 주문이 없어 일평균 판매량을 산출할 수 없습니다",
+      "details": []
+    }
+  },
+  "internal_error": {
+    "error": {
+      "code": "INTERNAL_ERROR",
+      "message": "서버 오류가 발생했습니다",
+      "details": []
+    }
+  }
+}

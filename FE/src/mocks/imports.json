@@ -1,0 +1,16 @@
+{
+  "imported": {
+    "orders": 2000,
+    "products": 8,
+    "suppliers": 3,
+    "purchase_orders": 10,
+    "defects": 20,
+    "costs": 8
+  },
+  "warnings": [
+    {
+      "file": "costs.csv",
+      "message": "P007의 ad_cost 가 비어 있습니다. 기여이익이 과대 추정될 수 있습니다"
+    }
+  ]
+}

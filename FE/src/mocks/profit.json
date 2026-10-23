@@ -1,0 +1,469 @@
+{
+  "period": {
+    "from": "2026-09-25",
+    "to": "2026-10-24"
+  },
+  "items": [
+    {
+      "product_id": "P007",
+      "product_name": "심플 로고 맨투맨",
+      "gross_sales": 756000,
+      "return_amount": 0,
+      "net_sales": 756000,
+      "cost_of_goods": 648000,
+      "platform_fee": 75600,
+      "ad_cost": null,
+      "shipping_cost": 54000,
+      "return_handling_cost": 0,
+      "defect_loss": 0,
+      "contribution_margin": -21600,
+      "contribution_margin_pct": -2.9,
+      "is_negative": true,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 648000,
+          "share_pct": 83.3
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 75600,
+          "share_pct": 9.7
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 54000,
+          "share_pct": 6.9
+        }
+      ],
+      "missing_costs": [
+        "ad_cost"
+      ],
+      "inputs": {
+        "sold_order_count": 18,
+        "returned_order_count": 0,
+        "unit_cost": 36000,
+        "price": 42000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 0
+      },
+      "formula": "756,000 − 648,000 − 75,600 − 54,000 − 0 = -21,600원 (-2.9%)",
+      "notes": [
+        {
+          "code": "MISSING_COST",
+          "message": "일부 비용 미입력"
+        }
+      ]
+    },
+    {
+      "product_id": "P006",
+      "product_name": "루즈핏 스웨트셔츠",
+      "gross_sales": 644000,
+      "return_amount": 0,
+      "net_sales": 644000,
+      "cost_of_goods": 266000,
+      "platform_fee": 64400,
+      "ad_cost": 60000,
+      "shipping_cost": 42000,
+      "return_handling_cost": 0,
+      "defect_loss": 0,
+      "contribution_margin": 211600,
+      "contribution_margin_pct": 32.9,
+      "is_negative": false,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 266000,
+          "share_pct": 61.5
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 64400,
+          "share_pct": 14.9
+        },
+        {
+          "key": "ad_cost",
+          "label": "광고비",
+          "amount": 60000,
+          "share_pct": 13.9
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 42000,
+          "share_pct": 9.7
+        }
+      ],
+      "missing_costs": [],
+      "inputs": {
+        "sold_order_count": 14,
+        "returned_order_count": 0,
+        "unit_cost": 19000,
+        "price": 46000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 0
+      },
+      "formula": "644,000 − 266,000 − 64,400 − 102,000 − 0 = 211,600원 (32.9%)",
+      "notes": []
+    },
+    {
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "gross_sales": 2006000,
+      "return_amount": 590000,
+      "net_sales": 1416000,
+      "cost_of_goods": 552000,
+      "platform_fee": 141600,
+      "ad_cost": 250000,
+      "shipping_cost": 102000,
+      "return_handling_cost": 50000,
+      "defect_loss": 92000,
+      "contribution_margin": 228400,
+      "contribution_margin_pct": 16.1,
+      "is_negative": false,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 552000,
+          "share_pct": 46.5
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 141600,
+          "share_pct": 11.9
+        },
+        {
+          "key": "ad_cost",
+          "label": "광고비",
+          "amount": 250000,
+          "share_pct": 21.1
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 102000,
+          "share_pct": 8.6
+        },
+        {
+          "key": "return_handling_cost",
+          "label": "반품 처리비",
+          "amount": 50000,
+          "share_pct": 4.2
+        },
+        {
+          "key": "defect_loss",
+          "label": "불량 손실",
+          "amount": 92000,
+          "share_pct": 7.7
+        }
+      ],
+      "missing_costs": [],
+      "inputs": {
+        "sold_order_count": 34,
+        "returned_order_count": 10,
+        "unit_cost": 23000,
+        "price": 59000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 4
+      },
+      "formula": "1,416,000 − 552,000 − 141,600 − 402,000 − 92,000 = 228,400원 (16.1%)",
+      "notes": []
+    },
+    {
+      "product_id": "P004",
+      "product_name": "크롭 니트 가디건",
+      "gross_sales": 2040000,
+      "return_amount": 544000,
+      "net_sales": 1496000,
+      "cost_of_goods": 682000,
+      "platform_fee": 149600,
+      "ad_cost": 200000,
+      "shipping_cost": 90000,
+      "return_handling_cost": 40000,
+      "defect_loss": 0,
+      "contribution_margin": 334400,
+      "contribution_margin_pct": 22.4,
+      "is_negative": false,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 682000,
+          "share_pct": 58.7
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 149600,
+          "share_pct": 12.9
+        },
+        {
+          "key": "ad_cost",
+          "label": "광고비",
+          "amount": 200000,
+          "share_pct": 17.2
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 90000,
+          "share_pct": 7.7
+        },
+        {
+          "key": "return_handling_cost",
+          "label": "반품 처리비",
+          "amount": 40000,
+          "share_pct": 3.4
+        }
+      ],
+      "missing_costs": [],
+      "inputs": {
+        "sold_order_count": 30,
+        "returned_order_count": 8,
+        "unit_cost": 31000,
+        "price": 68000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 0
+      },
+      "formula": "1,496,000 − 682,000 − 149,600 − 330,000 − 0 = 334,400원 (22.4%)",
+      "notes": []
+    },
+    {
+      "product_id": "P008",
+      "product_name": "기모 후드 집업",
+      "gross_sales": 1800000,
+      "return_amount": 360000,
+      "net_sales": 1440000,
+      "cost_of_goods": 660000,
+      "platform_fee": 144000,
+      "ad_cost": 150000,
+      "shipping_cost": 75000,
+      "return_handling_cost": 25000,
+      "defect_loss": 0,
+      "contribution_margin": 386000,
+      "contribution_margin_pct": 26.8,
+      "is_negative": false,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 660000,
+          "share_pct": 62.6
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 144000,
+          "share_pct": 13.7
+        },
+        {
+          "key": "ad_cost",
+          "label": "광고비",
+          "amount": 150000,
+          "share_pct": 14.2
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 75000,
+          "share_pct": 7.1
+        },
+        {
+          "key": "return_handling_cost",
+          "label": "반품 처리비",
+          "amount": 25000,
+          "share_pct": 2.4
+        }
+      ],
+      "missing_costs": [],
+      "inputs": {
+        "sold_order_count": 25,
+        "returned_order_count": 5,
+        "unit_cost": 33000,
+        "price": 72000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 0
+      },
+      "formula": "1,440,000 − 660,000 − 144,000 − 250,000 − 0 = 386,000원 (26.8%)",
+      "notes": []
+    },
+    {
+      "product_id": "P005",
+      "product_name": "플리츠 롱스커트",
+      "gross_sales": 1242000,
+      "return_amount": 0,
+      "net_sales": 1242000,
+      "cost_of_goods": 506000,
+      "platform_fee": 124200,
+      "ad_cost": 90000,
+      "shipping_cost": 69000,
+      "return_handling_cost": 0,
+      "defect_loss": 0,
+      "contribution_margin": 452800,
+      "contribution_margin_pct": 36.5,
+      "is_negative": false,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 506000,
+          "share_pct": 64.1
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 124200,
+          "share_pct": 15.7
+        },
+        {
+          "key": "ad_cost",
+          "label": "광고비",
+          "amount": 90000,
+          "share_pct": 11.4
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 69000,
+          "share_pct": 8.7
+        }
+      ],
+      "missing_costs": [],
+      "inputs": {
+        "sold_order_count": 23,
+        "returned_order_count": 0,
+        "unit_cost": 22000,
+        "price": 54000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 0
+      },
+      "formula": "1,242,000 − 506,000 − 124,200 − 159,000 − 0 = 452,800원 (36.5%)",
+      "notes": []
+    },
+    {
+      "product_id": "P003",
+      "product_name": "패딩 베스트",
+      "gross_sales": 2450000,
+      "return_amount": 196000,
+      "net_sales": 2254000,
+      "cost_of_goods": 943000,
+      "platform_fee": 225400,
+      "ad_cost": 120000,
+      "shipping_cost": 75000,
+      "return_handling_cost": 10000,
+      "defect_loss": 0,
+      "contribution_margin": 880600,
+      "contribution_margin_pct": 39.1,
+      "is_negative": false,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 943000,
+          "share_pct": 68.7
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 225400,
+          "share_pct": 16.4
+        },
+        {
+          "key": "ad_cost",
+          "label": "광고비",
+          "amount": 120000,
+          "share_pct": 8.7
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 75000,
+          "share_pct": 5.5
+        },
+        {
+          "key": "return_handling_cost",
+          "label": "반품 처리비",
+          "amount": 10000,
+          "share_pct": 0.7
+        }
+      ],
+      "missing_costs": [],
+      "inputs": {
+        "sold_order_count": 25,
+        "returned_order_count": 2,
+        "unit_cost": 41000,
+        "price": 98000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 0
+      },
+      "formula": "2,254,000 − 943,000 − 225,400 − 205,000 − 0 = 880,600원 (39.1%)",
+      "notes": []
+    },
+    {
+      "product_id": "P001",
+      "product_name": "오버핏 울 코트",
+      "gross_sales": 6426000,
+      "return_amount": 189000,
+      "net_sales": 6237000,
+      "cost_of_goods": 2706000,
+      "platform_fee": 623700,
+      "ad_cost": 180000,
+      "shipping_cost": 102000,
+      "return_handling_cost": 5000,
+      "defect_loss": 0,
+      "contribution_margin": 2620300,
+      "contribution_margin_pct": 42.0,
+      "is_negative": false,
+      "cost_breakdown": [
+        {
+          "key": "cost_of_goods",
+          "label": "상품 원가",
+          "amount": 2706000,
+          "share_pct": 74.8
+        },
+        {
+          "key": "platform_fee",
+          "label": "플랫폼 수수료",
+          "amount": 623700,
+          "share_pct": 17.2
+        },
+        {
+          "key": "ad_cost",
+          "label": "광고비",
+          "amount": 180000,
+          "share_pct": 5.0
+        },
+        {
+          "key": "shipping_cost",
+          "label": "배송비",
+          "amount": 102000,
+          "share_pct": 2.8
+        },
+        {
+          "key": "return_handling_cost",
+          "label": "반품 처리비",
+          "amount": 5000,
+          "share_pct": 0.1
+        }
+      ],
+      "missing_costs": [],
+      "inputs": {
+        "sold_order_count": 34,
+        "returned_order_count": 1,
+        "unit_cost": 82000,
+        "price": 189000,
+        "fee_rate_pct": 10.0,
+        "defect_qty": 0
+      },
+      "formula": "6,237,000 − 2,706,000 − 623,700 − 287,000 − 0 = 2,620,300원 (42.0%)",
+      "notes": []
+    }
+  ]
+}

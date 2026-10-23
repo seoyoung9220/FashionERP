@@ -1,0 +1,397 @@
+{
+  "period": {
+    "from": "2026-01-10",
+    "to": "2026-10-24"
+  },
+  "items": [
+    {
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "order_count": 277,
+      "return_count": 57,
+      "return_rate_pct": 20.6,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "SIZE_FIT",
+          "label": "사이즈·핏 문제",
+          "count": 22,
+          "share_pct": 38.6
+        },
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 18,
+          "share_pct": 31.6
+        },
+        {
+          "code": "QUALITY_FINISH",
+          "label": "봉제·마감 불만",
+          "count": 5,
+          "share_pct": 8.8
+        },
+        {
+          "code": "COLOR_IMAGE",
+          "label": "색상·이미지 차이",
+          "count": 5,
+          "share_pct": 8.8
+        },
+        {
+          "code": "SHIPPING",
+          "label": "배송·포장",
+          "count": 3,
+          "share_pct": 5.3
+        },
+        {
+          "code": "OTHER",
+          "label": "기타·판단 불확실",
+          "count": 2,
+          "share_pct": 3.5
+        },
+        {
+          "code": "FABRIC_FEEL",
+          "label": "원단·촉감·두께",
+          "count": 1,
+          "share_pct": 1.8
+        },
+        {
+          "code": "DEFECTIVE",
+          "label": "불량 제품",
+          "count": 1,
+          "share_pct": 1.8
+        }
+      ],
+      "inputs": {
+        "order_count": 277,
+        "return_count": 57
+      },
+      "formula": "57 ÷ 277 × 100 = 20.6%",
+      "notes": []
+    },
+    {
+      "product_id": "P004",
+      "product_name": "크롭 니트 가디건",
+      "order_count": 240,
+      "return_count": 41,
+      "return_rate_pct": 17.1,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 15,
+          "share_pct": 36.6
+        },
+        {
+          "code": "COLOR_IMAGE",
+          "label": "색상·이미지 차이",
+          "count": 14,
+          "share_pct": 34.1
+        },
+        {
+          "code": "SIZE_FIT",
+          "label": "사이즈·핏 문제",
+          "count": 4,
+          "share_pct": 9.8
+        },
+        {
+          "code": "QUALITY_FINISH",
+          "label": "봉제·마감 불만",
+          "count": 3,
+          "share_pct": 7.3
+        },
+        {
+          "code": "FABRIC_FEEL",
+          "label": "원단·촉감·두께",
+          "count": 3,
+          "share_pct": 7.3
+        },
+        {
+          "code": "OTHER",
+          "label": "기타·판단 불확실",
+          "count": 1,
+          "share_pct": 2.4
+        },
+        {
+          "code": "SHIPPING",
+          "label": "배송·포장",
+          "count": 1,
+          "share_pct": 2.4
+        }
+      ],
+      "inputs": {
+        "order_count": 240,
+        "return_count": 41
+      },
+      "formula": "41 ÷ 240 × 100 = 17.1%",
+      "notes": []
+    },
+    {
+      "product_id": "P008",
+      "product_name": "기모 후드 집업",
+      "order_count": 235,
+      "return_count": 37,
+      "return_rate_pct": 15.7,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "DEFECTIVE",
+          "label": "불량 제품",
+          "count": 27,
+          "share_pct": 73.0
+        },
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 10,
+          "share_pct": 27.0
+        }
+      ],
+      "inputs": {
+        "order_count": 235,
+        "return_count": 37
+      },
+      "formula": "37 ÷ 235 × 100 = 15.7%",
+      "notes": []
+    },
+    {
+      "product_id": "P001",
+      "product_name": "오버핏 울 코트",
+      "order_count": 235,
+      "return_count": 12,
+      "return_rate_pct": 5.1,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 3,
+          "share_pct": 25.0
+        },
+        {
+          "code": "DEFECTIVE",
+          "label": "불량 제품",
+          "count": 2,
+          "share_pct": 16.7
+        },
+        {
+          "code": "COLOR_IMAGE",
+          "label": "색상·이미지 차이",
+          "count": 2,
+          "share_pct": 16.7
+        },
+        {
+          "code": "SIZE_FIT",
+          "label": "사이즈·핏 문제",
+          "count": 2,
+          "share_pct": 16.7
+        },
+        {
+          "code": "FABRIC_FEEL",
+          "label": "원단·촉감·두께",
+          "count": 1,
+          "share_pct": 8.3
+        },
+        {
+          "code": "OTHER",
+          "label": "기타·판단 불확실",
+          "count": 1,
+          "share_pct": 8.3
+        },
+        {
+          "code": "QUALITY_FINISH",
+          "label": "봉제·마감 불만",
+          "count": 1,
+          "share_pct": 8.3
+        }
+      ],
+      "inputs": {
+        "order_count": 235,
+        "return_count": 12
+      },
+      "formula": "12 ÷ 235 × 100 = 5.1%",
+      "notes": []
+    },
+    {
+      "product_id": "P005",
+      "product_name": "플리츠 롱스커트",
+      "order_count": 264,
+      "return_count": 13,
+      "return_rate_pct": 4.9,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 6,
+          "share_pct": 46.2
+        },
+        {
+          "code": "SIZE_FIT",
+          "label": "사이즈·핏 문제",
+          "count": 3,
+          "share_pct": 23.1
+        },
+        {
+          "code": "DEFECTIVE",
+          "label": "불량 제품",
+          "count": 2,
+          "share_pct": 15.4
+        },
+        {
+          "code": "SHIPPING",
+          "label": "배송·포장",
+          "count": 1,
+          "share_pct": 7.7
+        },
+        {
+          "code": "FABRIC_FEEL",
+          "label": "원단·촉감·두께",
+          "count": 1,
+          "share_pct": 7.7
+        }
+      ],
+      "inputs": {
+        "order_count": 264,
+        "return_count": 13
+      },
+      "formula": "13 ÷ 264 × 100 = 4.9%",
+      "notes": []
+    },
+    {
+      "product_id": "P003",
+      "product_name": "패딩 베스트",
+      "order_count": 243,
+      "return_count": 9,
+      "return_rate_pct": 3.7,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "SIZE_FIT",
+          "label": "사이즈·핏 문제",
+          "count": 3,
+          "share_pct": 33.3
+        },
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 3,
+          "share_pct": 33.3
+        },
+        {
+          "code": "COLOR_IMAGE",
+          "label": "색상·이미지 차이",
+          "count": 2,
+          "share_pct": 22.2
+        },
+        {
+          "code": "DEFECTIVE",
+          "label": "불량 제품",
+          "count": 1,
+          "share_pct": 11.1
+        }
+      ],
+      "inputs": {
+        "order_count": 243,
+        "return_count": 9
+      },
+      "formula": "9 ÷ 243 × 100 = 3.7%",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "product_id": "P006",
+      "product_name": "루즈핏 스웨트셔츠",
+      "order_count": 247,
+      "return_count": 9,
+      "return_rate_pct": 3.6,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 4,
+          "share_pct": 44.4
+        },
+        {
+          "code": "FABRIC_FEEL",
+          "label": "원단·촉감·두께",
+          "count": 2,
+          "share_pct": 22.2
+        },
+        {
+          "code": "OTHER",
+          "label": "기타·판단 불확실",
+          "count": 1,
+          "share_pct": 11.1
+        },
+        {
+          "code": "DEFECTIVE",
+          "label": "불량 제품",
+          "count": 1,
+          "share_pct": 11.1
+        },
+        {
+          "code": "COLOR_IMAGE",
+          "label": "색상·이미지 차이",
+          "count": 1,
+          "share_pct": 11.1
+        }
+      ],
+      "inputs": {
+        "order_count": 247,
+        "return_count": 9
+      },
+      "formula": "9 ÷ 247 × 100 = 3.6%",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    },
+    {
+      "product_id": "P007",
+      "product_name": "심플 로고 맨투맨",
+      "order_count": 259,
+      "return_count": 6,
+      "return_rate_pct": 2.3,
+      "basis": "count",
+      "reasons": [
+        {
+          "code": "CHANGE_OF_MIND",
+          "label": "단순 변심",
+          "count": 3,
+          "share_pct": 50.0
+        },
+        {
+          "code": "SIZE_FIT",
+          "label": "사이즈·핏 문제",
+          "count": 2,
+          "share_pct": 33.3
+        },
+        {
+          "code": "QUALITY_FINISH",
+          "label": "봉제·마감 불만",
+          "count": 1,
+          "share_pct": 16.7
+        }
+      ],
+      "inputs": {
+        "order_count": 259,
+        "return_count": 6
+      },
+      "formula": "6 ÷ 259 × 100 = 2.3%",
+      "notes": [
+        {
+          "code": "SMALL_SAMPLE",
+          "message": "표본 수 부족"
+        }
+      ]
+    }
+  ]
+}

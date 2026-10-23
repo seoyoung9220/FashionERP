@@ -1,0 +1,47 @@
+{
+  "as_of": "2026-10-24",
+  "period": {
+    "from": "2026-09-25",
+    "to": "2026-10-24"
+  },
+  "defect": {
+    "defect_rate_pct": 2.1,
+    "spike_count": 1,
+    "worst_supplier": {
+      "supplier_id": "S01",
+      "supplier_name": "성수봉제",
+      "defect_rate_pct": 2.3,
+      "po_count": 5
+    }
+  },
+  "inventory": {
+    "reorder_overdue_count": 1,
+    "reorder_soon_count": 1,
+    "overstock_count": 1,
+    "ok_count": 5
+  },
+  "profit": {
+    "contribution_margin": 5092500,
+    "contribution_margin_pct": 32.9,
+    "negative_product_count": 1
+  },
+  "returns": {
+    "return_rate_pct": 9.2,
+    "top_reason": {
+      "code": "CHANGE_OF_MIND",
+      "label": "단순 변심",
+      "share_pct": 33.7
+    },
+    "top_actionable_reason": {
+      "code": "SIZE_FIT",
+      "label": "사이즈·핏 문제",
+      "share_pct": 19.6
+    },
+    "worst_product": {
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "return_rate_pct": 20.6
+    }
+  },
+  "notes": []
+}

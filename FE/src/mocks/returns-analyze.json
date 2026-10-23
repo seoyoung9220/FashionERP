@@ -1,0 +1,154 @@
+{
+  "product_id": "P002",
+  "period": {
+    "from": "2026-01-10",
+    "to": "2026-10-24"
+  },
+  "analyzed_count": 57,
+  "categories": [
+    {
+      "code": "SIZE_FIT",
+      "label": "사이즈·핏 문제",
+      "count": 22,
+      "share_pct": 38.6
+    },
+    {
+      "code": "CHANGE_OF_MIND",
+      "label": "단순 변심",
+      "count": 18,
+      "share_pct": 31.6
+    },
+    {
+      "code": "QUALITY_FINISH",
+      "label": "봉제·마감 불만",
+      "count": 5,
+      "share_pct": 8.8
+    },
+    {
+      "code": "COLOR_IMAGE",
+      "label": "색상·이미지 차이",
+      "count": 5,
+      "share_pct": 8.8
+    },
+    {
+      "code": "SHIPPING",
+      "label": "배송·포장",
+      "count": 3,
+      "share_pct": 5.3
+    },
+    {
+      "code": "OTHER",
+      "label": "기타·판단 불확실",
+      "count": 2,
+      "share_pct": 3.5
+    },
+    {
+      "code": "FABRIC_FEEL",
+      "label": "원단·촉감·두께",
+      "count": 1,
+      "share_pct": 1.8
+    },
+    {
+      "code": "DEFECTIVE",
+      "label": "불량 제품",
+      "count": 1,
+      "share_pct": 1.8
+    }
+  ],
+  "observed_facts": [
+    {
+      "statement": "반품 57건 중 22건(38.6%)이 사이즈·핏 문제로, 상품 문제 중 가장 큰 범주입니다",
+      "evidence_quotes": [
+        "사이즈가 작게 나와서 한 사이즈 큰 걸로 다시 사야겠어요",
+        "평소 M을 입는데 골반과 허리가 너무 타이트합니다"
+      ],
+      "evidence_order_ids": [
+        "P002-20260908-0009",
+        "P002-20260421-0426"
+      ]
+    },
+    {
+      "statement": "사이즈 의견이 한 방향이 아닙니다. '작다·타이트하다'와 '품이 크다'가 함께 나타납니다",
+      "evidence_quotes": [
+        "평소 M을 입는데 골반과 허리가 너무 타이트합니다",
+        "생각보다 품이 너무 크고 기장도 어정쩡해요"
+      ],
+      "evidence_order_ids": [
+        "P002-20260421-0426",
+        "P002-20260626-0099"
+      ]
+    },
+    {
+      "statement": "반품이 특정 사이즈에 쏠리지 않습니다. L 22건(38.6%), M 20건(35.1%), XL 15건(26.3%)으로 고르게 분포합니다",
+      "evidence_quotes": [
+        "생각보다 품이 너무 크고 기장도 어정쩡해요"
+      ],
+      "evidence_order_ids": [
+        "P002-20260626-0099"
+      ]
+    }
+  ],
+  "possible_causes": [
+    {
+      "statement": "부위별 치수가 고객 기대와 어긋날 가능성. 허리·골반은 타이트하다는 의견과 품·기장은 크다는 의견이 공존합니다",
+      "confidence": "MEDIUM",
+      "related_categories": [
+        "SIZE_FIT"
+      ]
+    },
+    {
+      "statement": "상품 페이지가 부위별 실측 치수를 충분히 제공하지 않을 가능성",
+      "confidence": "MEDIUM",
+      "related_categories": [
+        "SIZE_FIT",
+        "CHANGE_OF_MIND"
+      ]
+    }
+  ],
+  "checks_needed": [
+    "사이즈별 허리·골반·품·기장 실측 치수 확인",
+    "상품 페이지에 안내된 사이즈 표와 실측값 대조",
+    "같은 패턴을 쓰는 다른 하의 상품의 반품 사유 확인",
+    "봉제·마감 의견 6건의 구매 시점이 특정 입고 물량과 겹치는지 확인"
+  ],
+  "improvement_checklist": [
+    {
+      "title": "상품 페이지에 부위별 실측 치수 추가 (허리·골반·품·기장)",
+      "type": "PAGE_FIX",
+      "rationale": "사이즈 의견이 양방향이어서 어느 부위가 문제인지 고객이 판단할 정보가 필요합니다"
+    },
+    {
+      "title": "다음 샘플 제작 전 허리·골반 대비 품 비율 검토",
+      "type": "PRODUCT_FIX",
+      "rationale": "타이트하다는 의견과 품이 크다는 의견이 공존해 패턴 비율 확인이 필요합니다"
+    },
+    {
+      "title": "실물 색감 사진을 실내 조명 기준으로 추가",
+      "type": "PAGE_FIX",
+      "rationale": "색상·이미지 차이 5건(8.8%)이 조명 차이를 언급합니다"
+    }
+  ],
+  "size_color_findings": [
+    {
+      "dimension": "size",
+      "value": "L",
+      "count": 22,
+      "share_pct": 38.6
+    },
+    {
+      "dimension": "size",
+      "value": "M",
+      "count": 20,
+      "share_pct": 35.1
+    },
+    {
+      "dimension": "size",
+      "value": "XL",
+      "count": 15,
+      "share_pct": 26.3
+    }
+  ],
+  "insufficient_data": false,
+  "fallback": false,
+  "notes": []
+}
