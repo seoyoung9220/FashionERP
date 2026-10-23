@@ -53,6 +53,7 @@ AI가 실제로 만들어야 하는 가치는 네 가지입니다. 프롬프트�
 3. 입력에 없는 문장을 만들지 않습니다. 인용은 입력된 원문을 글자 그대로 씁니다.
 4. 원인은 "~가능성", "~로 보입니다"로 씁니다. "~이다", "~때문이다"를 쓰지 않습니다.
 5. 근거가 부족하면 원인을 제시하지 않고 insufficient_data 를 true 로 둡니다.
+   판단 기준은 아래 "근거 부족 판정"을 그대로 따릅니다. 느낌으로 정하지 않습니다.
 6. 거래처 변경, 패턴 변경을 권고하지 않습니다. "검토", "확인" 수준까지만 제안합니다.
 7. 숫자를 추측하지 않습니다. 입력에 주어진 건수만 사용하고, 비율은 직접 계산합니다.
 
@@ -95,6 +96,24 @@ QUALITY_FINISH 와 DEFECTIVE 의 구분:
 3. 특정 사이즈나 색상에 반품이 쏠리는지.
    이 내용은 size_color_findings 에만 담습니다. observed_facts 에 넣지 않습니다.
    고르게 분포하면 그것을 근거로 사이즈 편차라고 단정하지 않습니다.
+
+## 근거 부족 판정
+
+아래 중 하나라도 해당하면 insufficient_data 를 true 로 설정합니다.
+
+- stats.return_count 가 10 미만
+- 상품 문제를 가리키는 반품(CHANGE_OF_MIND, OTHER 를 제외한 범주)이 5건 미만
+
+insufficient_data 가 true 일 때는 반드시 이렇게 출력합니다.
+
+- possible_causes = []            (빈 배열)
+- improvement_checklist = []      (빈 배열)
+- notes 에 { "code": "SMALL_SAMPLE", ... } 를 포함
+- observed_facts 와 checks_needed 는 정상적으로 작성합니다
+
+반품이 적어도 패턴이 보이는 것 같다는 이유로 원인이나 개선안을 만들지 않습니다.
+표본이 적으면 같은 의견 2~3건은 우연히 발생할 수 있습니다.
+이때 할 일은 원인 추정이 아니라 "데이터가 더 쌓인 뒤 재분석"을 checks_needed 에 넣는 것입니다.
 
 ## observed_facts 작성 규칙
 
@@ -345,10 +364,10 @@ P007 심플 로고 맨투맨은 반품률 2.3%(6/259)로 가장 낮습니다. 6�
 
 입력 페이로드가 **실제 데이터로 생성되어 있습니다.** System 프롬프트와 함께 그대로 붙여넣으면 됩니다.
 
-| 파일 | 용도 | 내용 |
+| 입력 | 실제 출력 | 용도 |
 |---|---|---|
-| [`input-P002.json`](./input-P002.json) | **정상 분석** | 주문 277 · 반품 57(20.6%) · 14그룹 · 불량 3종 |
-| [`input-P007.json`](./input-P007.json) | **`insufficient_data` 분기** | 주문 259 · 반품 6(2.3%) · 6그룹 |
+| [`input-P002.json`](./input-P002.json) | [`sample-output-P002.json`](./sample-output-P002.json) | **정상 분석** — 반품 57건 |
+| [`input-P007.json`](./input-P007.json) | [`sample-output-P007.json`](./sample-output-P007.json) | **`insufficient_data` 분기** — 반품 6건 |
 
 ```bash
 # 다른 상품으로 재생성
@@ -375,6 +394,23 @@ python3 AI/prompts/run_analysis.py P002
 | 체크리스트 | `PAGE_FIX` 2건 + `PRODUCT_FIX` 1건 |
 
 **환각 없음** — 입력으로 준 색상 분포(Blue 36.8 / Black 35.1 / Gray 28.1)를 소수점까지 그대로 인용했습니다.
+
+### P007 — 근거 부족 분기 ✅
+
+반품 6건. **사실은 기록하되 원인과 개선안은 만들지 않습니다.**
+
+```
+insufficient_data    : true
+possible_causes      : []
+improvement_checklist: []
+notes                : [SMALL_SAMPLE]
+checks_needed[0]     : "총 반품 건수(6건)가 적어 통계적 유의성이 부족하므로
+                        반품 데이터가 더 축적된 후 재분석 검토"
+```
+
+> 1차 실행에서는 `insufficient_data: false`에 원인 3개·개선안 2개를 만들어냈습니다.
+> "근거가 부족하면"이라는 말이 정성적이어서 모델이 자기 기준으로 판단한 것입니다.
+> **"반품 10건 미만" 같은 정량 기준**을 넣고 나서 해결됐습니다.
 
 ### 검증된 사항
 

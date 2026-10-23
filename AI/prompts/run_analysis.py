@@ -172,6 +172,17 @@ def verify(out, payload):
             f.append("insufficient_data=true 인데 possible_causes 가 비어 있지 않음")
         if out.get("improvement_checklist"):
             f.append("insufficient_data=true 인데 improvement_checklist 가 비어 있지 않음")
+        if not any(n.get("code") == "SMALL_SAMPLE" for n in out.get("notes", [])):
+            f.append("insufficient_data=true 인데 notes 에 SMALL_SAMPLE 이 없음")
+    else:
+        # 켜졌어야 하는데 안 켜진 경우 (프롬프트의 "근거 부족 판정")
+        rc = payload["stats"]["return_count"]
+        product_issue = sum(c.get("count", 0) for c in out.get("categories", [])
+                            if c.get("code") not in ("CHANGE_OF_MIND", "OTHER"))
+        if rc < 10:
+            f.append(f"insufficient_data 가 false 인데 반품 {rc}건(<10) — true 여야 함")
+        elif product_issue < 5:
+            f.append(f"insufficient_data 가 false 인데 상품 문제 반품 {product_issue}건(<5) — true 여야 함")
 
     for c in out.get("possible_causes", []):
         if re.search(r"(때문이다|때문입니다|입니다\.$|이다\.$)", c.get("statement", "")):
