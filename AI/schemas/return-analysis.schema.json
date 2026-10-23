@@ -196,7 +196,8 @@
               "SMALL_SAMPLE",
               "MISSING_COST",
               "NOT_COMPUTABLE",
-              "AI_UNCERTAIN"
+              "AI_UNCERTAIN",
+              "AI_FALLBACK"
             ]
           },
           "message": { "type": "string", "minLength": 1 }
