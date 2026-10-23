@@ -22,7 +22,7 @@
 | 8 | **mock 응답 JSON 10개** | **태연** | 아니오 | [`FE/src/mocks/`](./FE/src/mocks/) | ✅ 작성됨 (가정값 포함) |
 | 9 | 환경변수 이름 | **태연** | 아니오 | [`.env.example`](./.env.example) | 초안 있음 |
 | 10 | AI 입출력 JSON 스키마 | **서영** | ✅ 전원 | [`AI/schemas/return-analysis.schema.json`](./AI/schemas/return-analysis.schema.json) | ✅ 작성됨 |
-| 11 | AI 프롬프트 | **서영** | 아니오 | [`AI/prompts/return-analysis.md`](./AI/prompts/return-analysis.md) | ✅ 작성됨 |
+| 11 | AI 프롬프트 | **서영** | 아니오 | [`AI/prompts/`](./AI/prompts/) | ✅ 프롬프트 + 입력 페이로드 |
 | 12 | **AI 폴백 응답** | **예나** | 아니오 | [`AI/fallback/returns-analyze.json`](./AI/fallback/returns-analyze.json) | ✅ 작성됨 |
 | 13 | AI 출력 검증 기준·테스트 세트 | **예나** | 아니오 | `AI/tests/cases.md` | 비어 있음 |
 | 14 | 화면 목록·공통 컴포넌트 | **윤지** | 아니오 | [`FE/README.md`](./FE/README.md) | 초안 있음 |

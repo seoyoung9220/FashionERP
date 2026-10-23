@@ -1,0 +1,151 @@
+{
+  "product": {
+    "product_id": "P007",
+    "product_name": "심플 로고 맨투맨",
+    "category": "상의/셔츠"
+  },
+  "period": {
+    "from": "2026-01-10",
+    "to": "2026-10-23"
+  },
+  "stats": {
+    "order_count": 259,
+    "return_count": 6,
+    "return_rate_pct": 2.3
+  },
+  "selected_reasons": [
+    {
+      "source_label": "단순 변심",
+      "count": 3
+    },
+    {
+      "source_label": "사이즈/핏",
+      "count": 2
+    },
+    {
+      "source_label": "바느질/마감",
+      "count": 1
+    }
+  ],
+  "returns": [
+    {
+      "text": "안쪽 마감 처리가 깔끔하지 못합니다",
+      "count": 1,
+      "order_ids": [
+        "P007-20260309-0613"
+      ],
+      "sizes": [
+        "XL"
+      ],
+      "colors": [
+        "Black"
+      ]
+    },
+    {
+      "text": "다른 색상이 더 나을 것 같아서 반품합니다",
+      "count": 1,
+      "order_ids": [
+        "P007-20260620-1003"
+      ],
+      "sizes": [
+        "XL"
+      ],
+      "colors": [
+        "Kaki"
+      ]
+    },
+    {
+      "text": "선물하려고 했는데 일정이 취소되었어요",
+      "count": 1,
+      "order_ids": [
+        "P007-20260422-1526"
+      ],
+      "sizes": [
+        "XL"
+      ],
+      "colors": [
+        "Black"
+      ]
+    },
+    {
+      "text": "사이즈가 작게 나와서 한 사이즈 큰 걸로 다시 사야겠어요",
+      "count": 1,
+      "order_ids": [
+        "P007-20260621-1546"
+      ],
+      "sizes": [
+        "XL"
+      ],
+      "colors": [
+        "Black"
+      ]
+    },
+    {
+      "text": "평소 M을 입는데 골반과 허리가 너무 타이트합니다",
+      "count": 1,
+      "order_ids": [
+        "P007-20260826-1732"
+      ],
+      "sizes": [
+        "M"
+      ],
+      "colors": [
+        "Kaki"
+      ]
+    },
+    {
+      "text": "실물을 보니 생각했던 느낌이 아니네요",
+      "count": 1,
+      "order_ids": [
+        "P007-20260227-1863"
+      ],
+      "sizes": [
+        "XL"
+      ],
+      "colors": [
+        "Black"
+      ]
+    }
+  ],
+  "dimension_counts": {
+    "size": [
+      {
+        "value": "XL",
+        "count": 5,
+        "share_pct": 83.3
+      },
+      {
+        "value": "M",
+        "count": 1,
+        "share_pct": 16.7
+      }
+    ],
+    "color": [
+      {
+        "value": "Black",
+        "count": 4,
+        "share_pct": 66.7
+      },
+      {
+        "value": "Kaki",
+        "count": 2,
+        "share_pct": 33.3
+      }
+    ]
+  },
+  "defect_context": [
+    {
+      "code": "PRINT_DYE",
+      "label": "프린트·염색·색상",
+      "qty": 3,
+      "share_pct": 75.0
+    },
+    {
+      "code": "SEWING",
+      "label": "봉제·재봉",
+      "qty": 1,
+      "share_pct": 25.0
+    }
+  ],
+  "defect_context_note": "P007 의 발주 1건 입고 검수에서 확인된 불량 4장. 반품 건과 같은 물량인지는 확인되지 않았으므로 단정하지 말 것."
+}

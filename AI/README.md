@@ -8,7 +8,10 @@
 
 ```
 AI/
-├── prompts/     return-analysis.md          ← 서영 ✅ 작성됨
+├── prompts/     return-analysis.md          ← 서영 ✅
+│             build_input.py             ← 입력 생성기 (BE 참조 구현)
+│             input-P002.json            ← 정상 분석 입력
+│             input-P007.json            ← insufficient_data 입력
 ├── schemas/     return-analysis.schema.json ← 서영 ✅ 작성됨
 ├── fallback/    returns-analyze.json        ← 예나 🔴 최우선
 └── tests/       cases.md                    ← 예나
