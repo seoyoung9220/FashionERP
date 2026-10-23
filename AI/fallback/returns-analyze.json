@@ -136,7 +136,7 @@
   "fallback": true,
   "notes": [
     {
-      "code": "NOT_COMPUTABLE",
+      "code": "AI_FALLBACK",
       "message": "LLM을 정상 호출하지 못해 실시간 AI 분류를 수행하지 않았습니다. 사전 수동 검토된 P002 고정 분석 예시를 표시합니다. 이 데이터는 최신 DB 집계가 아닙니다."
     },
     {
