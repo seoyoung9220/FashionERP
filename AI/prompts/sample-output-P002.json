@@ -1,0 +1,197 @@
+{
+  "product_id": "P002",
+  "analyzed_count": 57,
+  "categories": [
+    {
+      "code": "SIZE_FIT",
+      "label": "사이즈·핏 문제",
+      "count": 22,
+      "share_pct": 38.6
+    },
+    {
+      "code": "CHANGE_OF_MIND",
+      "label": "단순 변심",
+      "count": 18,
+      "share_pct": 31.6
+    },
+    {
+      "code": "COLOR_IMAGE",
+      "label": "색상·이미지 차이",
+      "count": 5,
+      "share_pct": 8.8
+    },
+    {
+      "code": "QUALITY_FINISH",
+      "label": "봉제·마감 불만",
+      "count": 5,
+      "share_pct": 8.8
+    },
+    {
+      "code": "SHIPPING",
+      "label": "배송·포장",
+      "count": 3,
+      "share_pct": 5.3
+    },
+    {
+      "code": "OTHER",
+      "label": "기타·판단 불확실",
+      "count": 2,
+      "share_pct": 3.5
+    },
+    {
+      "code": "FABRIC_FEEL",
+      "label": "원단·촉감·두께",
+      "count": 1,
+      "share_pct": 1.8
+    },
+    {
+      "code": "DEFECTIVE",
+      "label": "불량 제품",
+      "count": 1,
+      "share_pct": 1.8
+    }
+  ],
+  "observed_facts": [
+    {
+      "statement": "사이즈·핏 불만 내에서 품이 크다는 의견과 골반·허리가 타이트하거나 작다는 상충되는 의견이 함께 확인됩니다.",
+      "evidence_quotes": [
+        "생각보다 품이 너무 크고 기장도 어정쩡해요",
+        "평소 M을 입는데 골반과 허리가 너무 타이트합니다",
+        "사이즈가 작게 나와서 한 사이즈 큰 걸로 다시 사야겠어요"
+      ],
+      "evidence_order_ids": [
+        "P002-20260626-0099",
+        "P002-20260421-0426",
+        "P002-20260908-0009"
+      ]
+    },
+    {
+      "statement": "봉제·마감 불만(5건)과 제품 불량(1건)을 합치면 제작 품질 관련 반품은 총 6건입니다.",
+      "evidence_quotes": [
+        "실밥이 너무 지저분하게 튀어나와 있어요",
+        "안쪽 마감 처리가 깔끔하지 못합니다",
+        "지퍼 윗부분이 뻑뻑해서 잘 잠기지 않습니다"
+      ],
+      "evidence_order_ids": [
+        "P002-20260718-0257",
+        "P002-20260405-0507",
+        "P002-20260409-1493"
+      ]
+    },
+    {
+      "statement": "조명 환경에 따른 실물 색상과 사진 간 차이를 지적하는 반품이 확인됩니다.",
+      "evidence_quotes": [
+        "실내 조명에서 보면 사진과 색감 차이가 꽤 납니다"
+      ],
+      "evidence_order_ids": [
+        "P002-20260706-0296",
+        "P002-20260614-0745"
+      ]
+    },
+    {
+      "statement": "배송 중 박스 파손 및 패키지 손상 사유가 확인됩니다.",
+      "evidence_quotes": [
+        "박스가 다 찌그러져서 상품 패키지가 손상되었습니다"
+      ],
+      "evidence_order_ids": [
+        "P002-20260926-1537",
+        "P002-20260424-1665"
+      ]
+    }
+  ],
+  "possible_causes": [
+    {
+      "statement": "와이드 핏 특성상 허벅지·통은 넓으나 허리와 골반 단면이 상대적으로 좁게 제작되어 체형별 체감 차이가 발생했을 가능성",
+      "confidence": "HIGH",
+      "related_categories": [
+        "SIZE_FIT"
+      ]
+    },
+    {
+      "statement": "상세 페이지의 조명 환경과 실제 실내 조명 간 차이로 인해 색상 인지가 다르게 전달되었을 가능성",
+      "confidence": "MEDIUM",
+      "related_categories": [
+        "COLOR_IMAGE"
+      ]
+    },
+    {
+      "statement": "제조 과정 중 실밥 처리 및 안쪽 오버록 등 마감 공정과 부자재(지퍼) 검수가 미흡했을 가능성",
+      "confidence": "MEDIUM",
+      "related_categories": [
+        "QUALITY_FINISH",
+        "DEFECTIVE"
+      ]
+    }
+  ],
+  "checks_needed": [
+    "상세 페이지의 허리둘레, 엉덩이둘레, 밑위, 밑단 등 부위별 실측 치수 표기 확인",
+    "상세 페이지 내 자연광 및 실내 형광등/백열등 환경별 색상 안내 사진 포함 여부 확인",
+    "제조처 입고 검수 시 실밥 마감 및 지퍼 개폐 상태 검수 기준 확인",
+    "택배 포장재 강도 및 완충 방식 점검"
+  ],
+  "improvement_checklist": [
+    {
+      "title": "부위별 실측 치수 및 체형별 착용 핏 가이드 보완",
+      "type": "PAGE_FIX",
+      "rationale": "품이 크다는 의견과 골반·허리가 타이트하다는 의견이 공존하므로 허리/골반 단면과 전체 기장 정보를 상세히 안내할 필요가 있습니다."
+    },
+    {
+      "title": "실내 조명 기준 실물 색상 컷 추가",
+      "type": "PAGE_FIX",
+      "rationale": "실내 조명에서 색상 차이를 느끼는 고객 피드백이 확인되므로 다양한 조명 환경에서의 제품 컷 추가를 검토합니다."
+    },
+    {
+      "title": "입고 검수 시 마감 및 지퍼 작동 확인 절차 점검",
+      "type": "PRODUCT_FIX",
+      "rationale": "실밥 튀어나옴, 안쪽 마감 불량, 지퍼 뻑뻑함에 대한 불만이 접수되었으므로 입고 검수 단계 점검을 검토합니다."
+    }
+  ],
+  "insufficient_data": false,
+  "fallback": false,
+  "cross_check": {
+    "statement": "입고 검수 불량 10건 중 봉제·재봉 불량이 7건(70.0%), 마감 2건(20.0%)으로 나타나 반품에서 접수된 봉제·마감·지퍼 불만(총 6건)과 유형상 유사성이 관측되나 대상 물량이 동일한지는 확인이 필요합니다.",
+    "confidence": "MEDIUM"
+  },
+  "period": {
+    "from": "2026-01-10",
+    "to": "2026-10-24"
+  },
+  "size_color_findings": [
+    {
+      "dimension": "size",
+      "value": "L",
+      "count": 22,
+      "share_pct": 38.6
+    },
+    {
+      "dimension": "size",
+      "value": "M",
+      "count": 20,
+      "share_pct": 35.1
+    },
+    {
+      "dimension": "size",
+      "value": "XL",
+      "count": 15,
+      "share_pct": 26.3
+    },
+    {
+      "dimension": "color",
+      "value": "Blue",
+      "count": 21,
+      "share_pct": 36.8
+    },
+    {
+      "dimension": "color",
+      "value": "Black",
+      "count": 20,
+      "share_pct": 35.1
+    },
+    {
+      "dimension": "color",
+      "value": "Gray",
+      "count": 16,
+      "share_pct": 28.1
+    }
+  ]
+}

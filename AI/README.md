@@ -129,6 +129,8 @@ AI/
 > AI가 `return_detail_text`를 분류한 결과는 이와 **다를 수 있습니다** — 그 차이가 바로 `selected_reasons`와 대조할 지점입니다.
 > `size_color_findings`가 고르게 분포하면 "특정 사이즈 집중 없음"으로 보고하고 원인을 사이즈 편차로 단정하지 않습니다.
 
+> 🔴 **FE는 AI가 보낸 `label`을 믿지 말고 `enums.json`에서 코드로 조회해 표시하세요.** 모델이 입력의 한글 사유명(`source_label`)을 그대로 돌려주는 경우가 있습니다. 코드는 정확하므로 코드만 신뢰합니다.
+
 분류 코드는 [`DATA/enums.json`](../DATA/enums.json)의 `return_reasons` **8종**만 씁니다.
 데이터셋의 한글 `return_type_code`는 `source_label`로 영문 코드에 매핑됩니다.
 

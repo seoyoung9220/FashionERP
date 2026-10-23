@@ -1,0 +1,142 @@
+{
+  "product_id": "P007",
+  "analyzed_count": 6,
+  "categories": [
+    {
+      "code": "CHANGE_OF_MIND",
+      "label": "단순 변심",
+      "count": 3,
+      "share_pct": 50.0
+    },
+    {
+      "code": "SIZE_FIT",
+      "label": "사이즈·핏 문제",
+      "count": 2,
+      "share_pct": 33.3
+    },
+    {
+      "code": "QUALITY_FINISH",
+      "label": "봉제·마감 불만",
+      "count": 1,
+      "share_pct": 16.7
+    }
+  ],
+  "observed_facts": [
+    {
+      "statement": "사이즈 및 핏 관련 반품에서 제품이 작거나 특정 부위가 타이트하다는 의견이 확인되었습니다.",
+      "evidence_quotes": [
+        "사이즈가 작게 나와서 한 사이즈 큰 걸로 다시 사야겠어요",
+        "평소 M을 입는데 골반과 허리가 너무 타이트합니다"
+      ],
+      "evidence_order_ids": [
+        "P007-20260621-1546",
+        "P007-20260826-1732"
+      ]
+    },
+    {
+      "statement": "제품 내부 마감 상태에 대한 불만이 접수되었습니다.",
+      "evidence_quotes": [
+        "안쪽 마감 처리가 깔끔하지 못합니다"
+      ],
+      "evidence_order_ids": [
+        "P007-20260309-0613"
+      ]
+    },
+    {
+      "statement": "색상 선호 변경, 일정 취소, 단순 기대 차이 등 상품 하자 외 사유로 인한 반품이 발생했습니다.",
+      "evidence_quotes": [
+        "다른 색상이 더 나을 것 같아서 반품합니다",
+        "선물하려고 했는데 일정이 취소되었어요",
+        "실물을 보니 생각했던 느낌이 아니네요"
+      ],
+      "evidence_order_ids": [
+        "P007-20260620-1003",
+        "P007-20260422-1526",
+        "P007-20260227-1863"
+      ]
+    }
+  ],
+  "possible_causes": [
+    {
+      "statement": "기존 표준 사이즈 대비 밑단이나 허리 둘레 치수가 상대적으로 작게 제작되었거나 체감 착용감이 타이트할 가능성이 있습니다.",
+      "confidence": "MEDIUM",
+      "related_categories": [
+        "SIZE_FIT"
+      ]
+    },
+    {
+      "statement": "안쪽 시접 및 오버록 등 봉제 마감 단계의 검수가 미흡했을 가능성이 있습니다.",
+      "confidence": "LOW",
+      "related_categories": [
+        "QUALITY_FINISH"
+      ]
+    },
+    {
+      "statement": "상세 페이지의 핏 가이드 및 실측 정보가 고객의 실제 체형 체감과 차이가 있어 단순 변심 및 사이즈 반품으로 이어졌을 가능성이 있습니다.",
+      "confidence": "LOW",
+      "related_categories": [
+        "CHANGE_OF_MIND",
+        "SIZE_FIT"
+      ]
+    }
+  ],
+  "checks_needed": [
+    "상세 페이지에 표기된 허리·밑단 단면 실측과 실제 완제품 치수가 일치하는지 샘플 측정 확인",
+    "입고 검수 시 맨투맨 내부 봉제 마감 및 잔사 정리 상태 확인",
+    "모델 착용 컷 및 체형별 핏 안내 문구가 충분히 제공되고 있는지 상세 페이지 점검"
+  ],
+  "improvement_checklist": [
+    {
+      "title": "상세 페이지 실측 치수 안내 및 핏 가이드 보완",
+      "type": "PAGE_FIX",
+      "rationale": "허리 및 골반 부위가 타이트하거나 작게 느껴진다는 피드백이 있으므로 실측 정보와 체형별 추천 사이즈 안내를 상세화하여 반품을 줄일 수 있습니다."
+    },
+    {
+      "title": "완제품 내부 마감 검수 기준 확인",
+      "type": "PRODUCT_FIX",
+      "rationale": "안쪽 마감 불만 사례가 접수되었으므로 입고 검수 단계에서 내부 시접 처리 상태를 확인하는 기준을 검토할 필요가 있습니다."
+    }
+  ],
+  "insufficient_data": false,
+  "fallback": false,
+  "cross_check": {
+    "statement": "입고 검수 불량 중 봉제 불량(1장)이 확인되었으며, 반품 사유 중 안쪽 마감 불만(1건)과 봉제 품질 측면에서 연관 가능성이 있으나 대상 물량이 동일한지는 확인되지 않았습니다.",
+    "confidence": "LOW"
+  },
+  "notes": [
+    {
+      "code": "SMALL_SAMPLE",
+      "message": "분석 대상 반품 건수가 6건으로 표본 수가 작아 해석에 유의가 필요합니다."
+    }
+  ],
+  "period": {
+    "from": "2026-01-10",
+    "to": "2026-10-23"
+  },
+  "size_color_findings": [
+    {
+      "dimension": "size",
+      "value": "XL",
+      "count": 5,
+      "share_pct": 83.3
+    },
+    {
+      "dimension": "size",
+      "value": "M",
+      "count": 1,
+      "share_pct": 16.7
+    },
+    {
+      "dimension": "color",
+      "value": "Black",
+      "count": 4,
+      "share_pct": 66.7
+    },
+    {
+      "dimension": "color",
+      "value": "Kaki",
+      "count": 2,
+      "share_pct": 33.3
+    }
+  ]
+}

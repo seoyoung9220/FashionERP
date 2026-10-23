@@ -93,8 +93,26 @@ QUALITY_FINISH 와 DEFECTIVE 의 구분:
    합쳤을 때의 건수와 순위를 함께 보고합니다.
 
 3. 특정 사이즈나 색상에 반품이 쏠리는지.
-   고르게 분포하면 "특정 사이즈 집중 없음"이라고 보고하고,
-   그것을 근거로 사이즈 편차라고 단정하지 않습니다.
+   이 내용은 size_color_findings 에만 담습니다. observed_facts 에 넣지 않습니다.
+   고르게 분포하면 그것을 근거로 사이즈 편차라고 단정하지 않습니다.
+
+## observed_facts 작성 규칙
+
+observed_facts 의 모든 항목은 evidence_quotes 와 evidence_order_ids 를
+각각 최소 1개 이상 반드시 포함해야 합니다. 빈 배열은 허용되지 않습니다.
+
+인용할 원문이 없는 내용은 observed_facts 에 넣지 않습니다.
+- 분포·비율 같은 집계 관측 → size_color_findings 또는 categories
+- 확인이 필요한 사항 → checks_needed
+
+## label 은 그대로 복사합니다
+
+categories[].label 에는 아래 값을 글자 그대로 씁니다. 입력의 한글 사유명을
+그대로 쓰지 않습니다.
+
+SIZE_FIT=사이즈·핏 문제 / COLOR_IMAGE=색상·이미지 차이 / FABRIC_FEEL=원단·촉감·두께
+QUALITY_FINISH=봉제·마감 불만 / DEFECTIVE=불량 제품 / SHIPPING=배송·포장
+CHANGE_OF_MIND=단순 변심 / OTHER=기타·판단 불확실
 
 ## 개선 체크리스트 작성 규칙
 
@@ -198,9 +216,12 @@ share_pct 는 0~100 숫자이며 소수 첫째 자리까지 씁니다. 0.42 가 
       "evidence_order_ids": ["P002-20260421-0426", "P002-20260626-0099"]
     },
     {
-      "statement": "반품이 특정 사이즈에 쏠리지 않습니다. L 22건(38.6%), M 20건(35.1%), XL 15건(26.3%)으로 고르게 분포합니다",
-      "evidence_quotes": ["생각보다 품이 너무 크고 기장도 어정쩡해요"],
-      "evidence_order_ids": ["P002-20260626-0099"]
+      "statement": "봉제·마감 불만 5건과 불량 제품 1건을 합치면 품질 관련 반품은 6건(10.5%)입니다",
+      "evidence_quotes": [
+        "실밥이 너무 지저분하게 튀어나와 있어요",
+        "지퍼 윗부분이 뻑뻑해서 잘 잠기지 않습니다"
+      ],
+      "evidence_order_ids": ["P002-20260718-0257", "P002-20260409-1493"]
     }
   ],
   "possible_causes": [
@@ -336,6 +357,24 @@ python3 AI/prompts/build_input.py P002 --full      # 압축 없이 57행
 ```
 
 [`build_input.py`](./build_input.py)는 **백엔드 참조 구현**이기도 합니다. 태연님이 `/api/returns/analyze`에서 같은 구조를 만드시면 됩니다. 정본(`datasets/`)에서만 읽고, BOM·홑따옴표·`NA` 처리가 들어가 있습니다.
+
+### 실제 실행 결과 ✅
+
+```bash
+python3 AI/prompts/run_analysis.py P002
+```
+
+`gemini-3.8-flash`로 돌린 실제 출력이 [`sample-output-P002.json`](./sample-output-P002.json)에 있습니다.
+**검증 9개 전부 통과**했고 기대 발견 4개가 모두 나왔습니다.
+
+| 발견 | 실제 출력 |
+|---|---|
+| 상충 | "사이즈·핏 범주 내에서 품이 크다는 의견과 허리·골반이 작다는 의견이 **상충**하여 접수되었습니다" |
+| 재묶음 | "봉제 마감 불만(5건)과 지퍼 작동 불량(1건) 등 품질 관련 반품이 **총 6건**" |
+| 교차 대조 | "입고 검수 불량 10건 중 봉제·마감이 9건(90.0%) … **두 데이터의 대상 물량이 동일한지는 확인이 필요**" |
+| 체크리스트 | `PAGE_FIX` 2건 + `PRODUCT_FIX` 1건 |
+
+**환각 없음** — 입력으로 준 색상 분포(Blue 36.8 / Black 35.1 / Gray 28.1)를 소수점까지 그대로 인용했습니다.
 
 ### 검증된 사항
 
