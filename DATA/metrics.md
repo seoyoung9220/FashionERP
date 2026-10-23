@@ -1,0 +1,188 @@
+# 지표 정의서
+
+**소유자:** 시환 · 마감 **0:30** 🔴 크리티컬 패스
+
+백엔드는 이 공식을 **그대로** 구현합니다. 공식이 다르면 코드가 아니라 이 문서를 먼저 고칩니다.
+모든 지표 응답에는 산출에 사용한 숫자를 `inputs`에, 사람이 읽는 식을 `formula`에 담습니다 ([`CONVENTIONS.md §8`](../CONVENTIONS.md)).
+
+## 기본값
+
+| 값 | 기본 | 변경 | 설명 |
+|---|---|---|---|
+| `sales_window_days` (N) | **7** | 사용자 | 일평균 판매량 산출 기간 |
+| `target_cover_days` | **14** | 사용자 | 리드타임 이후 커버할 일수 |
+| `spike_multiplier` | **1.5** | 고정 | 불량률 급증 판정 배수 |
+| `small_sample_threshold` | **30** | 고정 | 검수 수량이 이 미만이면 `SMALL_SAMPLE` |
+| `overstock_days` | **60** | 고정 | 소진 예상일이 이보다 크면 `OVERSTOCK` |
+| `profit_period_days` | **30** | 사용자 | 수익성 집계 기간 |
+
+---
+
+## 1. 불량률
+
+```
+입고 불량률(%)    = defect_qty ÷ inspected_qty × 100
+양품 입고 수량     = received_qty − defect_qty
+불량 손실 금액     = defect_qty × products.cost
+거래처 불량률(%)   = Σ defect_qty ÷ Σ inspected_qty × 100    (해당 거래처 전체 발주 건)
+상품 평균 불량률(%) = Σ defect_qty ÷ Σ inspected_qty × 100    (해당 상품 전체 발주 건)
+불량 유형 비중(%)  = 유형별 defect_qty ÷ 해당 건 defect_qty × 100
+```
+
+🔴 **분모는 `inspected_qty`(검수 수량)로 통일합니다.** `received_qty`나 `ordered_qty`를 분모로 쓰지 않습니다.
+
+### 급증 판정
+
+비교 기준은 **해당 발주 건을 제외한 이전 발주 건들의 평균**입니다.
+
+```
+prior_avg_pct       = Σ(이전 건 defect_qty) ÷ Σ(이전 건 inspected_qty) × 100
+spike_threshold_pct = prior_avg_pct × 1.5
+is_spike            = (입고 불량률 ≥ spike_threshold_pct)
+```
+
+> 자기 자신을 포함한 평균과 비교하면 급증한 건이 평균을 끌어올려 판정이 둔해집니다. 그래서 **해당 건을 제외**합니다.
+> 통계적 유의성 검정은 하지 않습니다. 응답에 `prior_avg_pct`와 `spike_threshold_pct`를 함께 담아 근거를 보여줍니다.
+
+예시:
+
+```
+이전 건: 150장 검수 4 불량 · 55장 검수 1 불량
+prior_avg_pct = 5 ÷ 205 × 100 = 2.4%
+threshold     = 2.4 × 1.5     = 3.7%
+현재 건: 200장 검수 16 불량 = 8.0% ≥ 3.7%  →  급증
+```
+
+### 예외 처리
+
+| 조건 | 결과 |
+|---|---|
+| `inspected_qty` = 0 또는 없음 | `defect_rate_pct: null` + `NOT_COMPUTABLE` |
+| `inspected_qty` < 30 | 값은 계산하되 `SMALL_SAMPLE` 표시 |
+| 이전 발주 건이 없음 | `is_spike: false` + `SMALL_SAMPLE` (비교 대상 없음) |
+
+---
+
+## 2. 재고 및 발주
+
+```
+현재 재고       = Σ 양품 입고 수량 − Σ sold_qty + Σ (resellable=TRUE 인 return_qty)
+일평균 판매량    = 최근 N일 sold_qty 합계 ÷ N                   (N = 7)
+재고 소진 예상일 = 현재 재고 ÷ 일평균 판매량
+발주 필요 시점   = 재고 소진 예상일 − lead_time_days
+```
+
+### 권장 발주량
+
+```
+필요 수량    = 일평균 판매량 × (lead_time_days + target_cover_days) − 현재 재고
+불량률 보정   = 필요 수량 ÷ (1 − 상품 평균 불량률 ÷ 100)
+최종 발주량   = ceil(불량률 보정) 을 moq 단위로 올림
+```
+
+예시 (와이드 데님 팬츠):
+
+```
+6.0 × (10 + 14)      = 144
+144 − 재고 40         = 104      ← 필요 수량
+104 ÷ (1 − 0.052)    = 109.7    ← 상품 평균 불량률 5.2% 보정
+ceil(109.7)          = 110
+MOQ 50 단위 올림      = 150      ← 최종 발주량
+```
+
+> 🔴 **재고를 빼는 것을 잊지 마세요.** 불량률 보정은 **재고 차감 후**에 적용합니다.
+> 보정에 쓰는 불량률은 **해당 상품 전체 평균**입니다. 급증 판정에 쓰는 `prior_avg_pct`와 다릅니다.
+
+### 재고 상태 판정
+
+| 조건 | status |
+|---|---|
+| 발주 필요 시점 < 0 | `REORDER_OVERDUE` |
+| 0 ≤ 발주 필요 시점 ≤ 3 | `REORDER_SOON` |
+| 재고 소진 예상일 > 60 | `OVERSTOCK` |
+| 그 외 | `OK` |
+| 일평균 판매량 = 0 또는 산출 불가 | `UNKNOWN` |
+
+### 예외 처리
+
+| 조건 | 결과 |
+|---|---|
+| 일평균 판매량 = 0 | `days_to_stockout: null`, `status: UNKNOWN`, `NOT_COMPUTABLE` |
+| 판매 기록 기간 < N일 | 값은 계산하되 `confidence: LOW` + `LOW_CONFIDENCE` |
+| 필요 수량 ≤ 0 | `final_order_qty: 0` + `notes: "현재 재고로 목표 기간 커버 가능"` |
+| 상품 평균 불량률이 없음 | 보정 생략(1.0으로 처리) + `notes` 표시 |
+
+---
+
+## 3. 정산 수익
+
+```
+총매출         = Σ sales_amount
+반품 금액       = Σ (return_qty × products.price)
+순매출         = 총매출 − 반품 금액
+
+상품 원가       = Σ sold_qty × products.cost
+플랫폼 수수료    = 순매출 × fee_rate_pct ÷ 100
+배송비         = 판매 건수 × shipping_cost_per_order
+반품 처리비      = 반품 건수 × return_handling_cost_per_order
+변동비         = ad_cost + 배송비 + 반품 처리비
+불량 손실       = Σ defect_qty × products.cost          ← 1번에서 전달
+
+추정 기여이익    = 순매출 − 상품 원가 − 플랫폼 수수료 − 변동비 − 불량 손실
+기여이익률(%)    = 추정 기여이익 ÷ 순매출 × 100
+```
+
+**기간**: 기본 최근 30일. 발주·불량은 해당 기간 내 `received_at` 기준으로 집계합니다.
+
+### 예외 처리
+
+| 조건 | 결과 |
+|---|---|
+| 비용 항목이 비어 있음 | **0으로 치환하지 않고** 계산에서 제외, `missing_costs` 배열에 키 이름 추가, `MISSING_COST` 표시 |
+| 순매출 = 0 | `contribution_margin_pct: null` + `NOT_COMPUTABLE` |
+| 기여이익 < 0 | 정상 반환 + `is_negative: true` |
+
+> 🔴 **"순이익"이라고 표기하지 않습니다.** 응답·화면 모두 "추정 기여이익"입니다.
+> `missing_costs`가 비어 있지 않으면 화면에 "일부 비용 미입력"을 반드시 표시합니다.
+> 세무·회계 신고를 대체하는 서비스로 설명하지 않습니다.
+
+---
+
+## 4. 반품률
+
+```
+반품률(%)       = Σ return_qty ÷ Σ sold_qty × 100
+재판매 가능 수량  = Σ (resellable=TRUE 인 return_qty)
+사유별 비중(%)   = 사유별 건수 ÷ 전체 반품 건수 × 100
+```
+
+**수량 기준**과 **건수 기준**을 혼용하지 않습니다.
+
+| 지표 | 기준 |
+|---|---|
+| 반품률 | **수량** (`return_qty` 합계) |
+| 사유별 비중 | **건수** (행 개수) |
+
+응답에 `basis: "qty"` / `"count"`를 명시합니다.
+
+### 예외 처리
+
+| 조건 | 결과 |
+|---|---|
+| `sold_qty` 합계 = 0 | `return_rate_pct: null` + `NOT_COMPUTABLE` |
+| 반품 건수 < 10 | 값은 계산하되 `SMALL_SAMPLE` |
+
+---
+
+## 5. 검증
+
+`expected/expected-metrics.md`에 샘플 데이터 기준 **수작업 기대값**을 작성합니다 (2:00).
+통합 단계(5:00)에서 백엔드 계산 결과와 대조합니다. 상품 2~3개로 충분합니다.
+
+| 지표 | 대조 대상 |
+|---|---|
+| 불량률 | 발주 건 2건 + 거래처 1곳 |
+| 현재 재고 | 상품 2개 |
+| 권장 발주량 | 상품 2개 (MOQ 올림 적용 1개 포함) |
+| 기여이익 | 상품 2개 (음수 1개 포함) |
+| 반품률 | 상품 1개 |
