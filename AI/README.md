@@ -8,7 +8,7 @@
 
 ```
 AI/
-├── prompts/     return-analysis.md          ← 서영
+├── prompts/     return-analysis.md          ← 서영 ✅ 작성됨
 ├── schemas/     return-analysis.schema.json ← 서영 ✅ 작성됨
 ├── fallback/    returns-analyze.json        ← 예나 🔴 최우선
 └── tests/       cases.md                    ← 예나
@@ -36,7 +36,7 @@ AI/
 | `product`, `period`, `stats` | 맥락 (상품명, 기간, 주문 수, 반품 수, 반품률) |
 | `returns[]` | **분류 대상.** `order_id` + `return_detail_text` |
 | `selected_reasons[]` | 고객이 **선택한** `return_type_code`. 분류 결과와 대조용 — 분류 입력이 아님 |
-| `dimensions[]` | 반품 건의 `size`·`color` — 특정 사이즈·색상 집중 여부 확인용 |
+| `dimension_counts` | 반품 건의 `size`·`color` 분포 — 특정 사이즈·색상 집중 여부 확인용 |
 | `defect_context[]` | 입고 검수 불량 유형. `DEFECTIVE`·`QUALITY_FINISH` 반품과 방향이 같은지 확인용. 시환의 `defects.csv`가 나오기 전엔 비어 있음 |
 
 > `returns`가 비어 있으면 LLM을 호출하지 않고 `insufficient_data: true`를 즉시 반환합니다.
@@ -172,7 +172,7 @@ LLM 호출이 실패·지연되면 `fallback/returns-analyze.json`을 **200으�
 | | 서영 | 예나 |
 |---|---|---|
 | 먼저 | 입출력 JSON 스키마 ✅ | **폴백 응답** 🔴 |
-| 다음 | 프롬프트, 개선 체크리스트 생성 | 검증 스크립트, 테스트 케이스 |
+| 다음 | 프롬프트 ✅ → 실제 LLM 호출 검증 | 검증 스크립트, 테스트 케이스 |
 | 이후 | 분류 품질 개선 | **FE 반품 분석 화면** |
 
 ## 접점

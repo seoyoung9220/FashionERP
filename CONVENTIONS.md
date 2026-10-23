@@ -22,7 +22,7 @@
 | 8 | **mock 응답 JSON 10개** | **태연** | 아니오 | `FE/src/mocks/*.json` | 🔴 **비어 있음** |
 | 9 | 환경변수 이름 | **태연** | 아니오 | [`.env.example`](./.env.example) | 초안 있음 |
 | 10 | AI 입출력 JSON 스키마 | **서영** | ✅ 전원 | [`AI/schemas/return-analysis.schema.json`](./AI/schemas/return-analysis.schema.json) | ✅ 작성됨 |
-| 11 | AI 프롬프트 | **서영** | 아니오 | `AI/prompts/return-analysis.md` | 비어 있음 |
+| 11 | AI 프롬프트 | **서영** | 아니오 | [`AI/prompts/return-analysis.md`](./AI/prompts/return-analysis.md) | ✅ 작성됨 |
 | 12 | **AI 폴백 응답** | **예나** | 아니오 | `AI/fallback/returns-analyze.json` | 🔴 **비어 있음** |
 | 13 | AI 출력 검증 기준·테스트 세트 | **예나** | 아니오 | `AI/tests/cases.md` | 비어 있음 |
 | 14 | 화면 목록·공통 컴포넌트 | **윤지** | 아니오 | [`FE/README.md`](./FE/README.md) | 초안 있음 |
@@ -193,7 +193,7 @@
     "code": "VALIDATION_FAILED",
     "message": "업로드 파일에서 2개 행의 오류를 발견했습니다",
     "details": [
-      { "file": "returns.csv", "row": 14, "column": "return_qty", "value": "-2", "message": "수량은 0 이상의 정수여야 합니다" }
+      { "file": "purchase_orders.csv", "row": 14, "column": "defect_qty", "value": "-2", "message": "수량은 0 이상의 정수여야 합니다" }
     ]
   }
 }
