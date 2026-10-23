@@ -1,5 +1,6 @@
 {
   "_comment": "소유자: 시환 · 전원 합의 · 저장·전송은 code, 화면 표시는 label. 한글을 코드값이나 JSON 키로 쓰지 않는다.",
+  "_source_label": "return_reasons 의 source_label 은 datasets/product_return_dataset_2000.csv 의 return_type_code 한글 값이다. 적재 시 이 값을 code 로 변환한다. 미반품 행의 'NA' 는 null 로 변환한다.",
   "defect_types": [
     { "code": "SEWING",    "label": "봉제·재봉" },
     { "code": "FABRIC",    "label": "원단·소재 결함" },
@@ -11,13 +12,14 @@
     { "code": "OTHER",     "label": "기타·판단 불가" }
   ],
   "return_reasons": [
-    { "code": "SIZE_FIT",       "label": "사이즈·핏 문제" },
-    { "code": "COLOR_IMAGE",    "label": "색상·이미지 차이" },
-    { "code": "FABRIC_FEEL",    "label": "원단·촉감·두께" },
-    { "code": "QUALITY_FINISH", "label": "품질·마감" },
-    { "code": "SHIPPING",       "label": "배송·포장" },
-    { "code": "CHANGE_OF_MIND", "label": "단순 변심" },
-    { "code": "OTHER",          "label": "기타·판단 불확실" }
+    { "code": "SIZE_FIT",       "label": "사이즈·핏 문제",   "source_label": "사이즈/핏" },
+    { "code": "COLOR_IMAGE",    "label": "색상·이미지 차이", "source_label": "색상/사진 차이" },
+    { "code": "FABRIC_FEEL",    "label": "원단·촉감·두께",   "source_label": "원단/감촉" },
+    { "code": "QUALITY_FINISH", "label": "봉제·마감 불만",   "source_label": "바느질/마감" },
+    { "code": "DEFECTIVE",      "label": "불량 제품",       "source_label": "불량 제품" },
+    { "code": "SHIPPING",       "label": "배송·포장",       "source_label": "배송/포장" },
+    { "code": "CHANGE_OF_MIND", "label": "단순 변심",       "source_label": "단순 변심" },
+    { "code": "OTHER",          "label": "기타·판단 불확실", "source_label": "기타" }
   ],
   "task_status": [
     { "code": "PENDING",     "label": "대기" },

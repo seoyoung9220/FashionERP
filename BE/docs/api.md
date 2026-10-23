@@ -1,12 +1,12 @@
 # API 명세
 
-**소유자:** 태연 · ✅ 전원 합의 · 마감 **1:00**
+**소유자:** 태연 · ✅ 전원 합의
 
 - Base URL: `http://localhost:8000`
 - 공통 규약: [`CONVENTIONS.md`](../../CONVENTIONS.md) — 키 `snake_case`, 비율 `_pct`(0~100), 금액 정수, ID 문자열
 - 열거형: [`DATA/enums.json`](../../DATA/enums.json)
 - 지표 공식: [`DATA/metrics.md`](../../DATA/metrics.md)
-- **mock: `FE/src/mocks/*.json`** — 프론트엔드는 1:00부터 이 파일로 개발합니다
+- **mock: `FE/src/mocks/*.json`** — 프론트엔드는 이 파일로 개발을 시작합니다. 이 명세의 예시 JSON을 그대로 떼내면 됩니다
 
 > 🔴 모든 지표 응답에 `inputs`와 `formula`를 담습니다. 결과값만 반환하면 화면에서 근거를 못 보여줍니다.
 
@@ -52,7 +52,7 @@
     "code": "VALIDATION_FAILED",
     "message": "업로드 파일에서 2개 행의 오류를 발견했습니다",
     "details": [
-      { "file": "returns.csv", "row": 14, "column": "return_qty", "value": "-2", "message": "수량은 0 이상의 정수여야 합니다" }
+      { "file": "purchase_orders.csv", "row": 14, "column": "defect_qty", "value": "-2", "message": "수량은 0 이상의 정수여야 합니다" }
     ]
   }
 }
@@ -74,8 +74,10 @@
   "inventory": { "reorder_overdue_count": 1, "reorder_soon_count": 2, "overstock_count": 1 },
   "profit": { "contribution_margin": 1069200, "contribution_margin_pct": 28.0, "negative_product_count": 1 },
   "returns": {
-    "return_rate_pct": 9.1,
-    "top_reason": { "code": "SIZE_FIT", "label": "사이즈·핏 문제", "share_pct": 40.6 }
+    "return_rate_pct": 9.2,
+    "top_reason": { "code": "CHANGE_OF_MIND", "label": "단순 변심", "share_pct": 33.7 },
+    "top_actionable_reason": { "code": "SIZE_FIT", "label": "사이즈·핏 문제", "share_pct": 19.6 },
+    "worst_product": { "product_id": "P002", "product_name": "와이드 데님 팬츠", "return_rate_pct": 20.6 }
   },
   "notes": []
 }
@@ -142,7 +144,7 @@
       "reorder_point_days": -3.3,
       "status": "REORDER_OVERDUE",
       "status_label": "발주 시점 경과",
-      "inputs": { "cum_good_received": 384, "cum_sold": 352, "resellable_returns": 8, "sales_window_days": 7, "sales_in_window": 42 },
+      "inputs": { "cum_good_received": 384, "sold_order_count": 352, "returned_order_count": 8, "sales_window_days": 7, "orders_in_window": 42 },
       "formula": "384 − 352 + 8 = 40장 · 42 ÷ 7 = 6.0장/일 · 40 ÷ 6.0 = 6.7일 · 6.7 − 10 = −3.3일",
       "confidence": "MEDIUM",
       "notes": []
@@ -220,7 +222,7 @@
         { "key": "return_handling_cost", "label": "반품 처리비",   "amount": 69000,   "share_pct": 2.5 }
       ],
       "missing_costs": [],
-      "inputs": { "sold_qty": 88, "unit_cost": 18000, "price": 48000, "fee_rate_pct": 10.0, "return_qty": 8, "defect_qty": 16 },
+      "inputs": { "sold_order_count": 88, "returned_order_count": 8, "unit_cost": 18000, "price": 48000, "fee_rate_pct": 10.0, "defect_qty": 16 },
       "formula": "3,818,000 − 1,584,000 − 381,800 − 495,000 − 288,000 = 1,069,200원 (28.0%)",
       "notes": []
     }
@@ -244,26 +246,32 @@
   "period": { "from": "2026-09-25", "to": "2026-10-24" },
   "items": [
     {
-      "product_id": "P001",
+      "product_id": "P002",
       "product_name": "와이드 데님 팬츠",
-      "sold_qty": 88,
-      "return_qty": 8,
-      "return_rate_pct": 9.1,
-      "basis": "qty",
-      "resellable_qty": 5,
-      "return_count": 8,
+      "order_count": 277,
+      "return_count": 57,
+      "return_rate_pct": 20.6,
+      "basis": "count",
       "reasons": [
-        { "code": "SIZE_FIT",       "label": "사이즈·핏 문제", "count": 4, "share_pct": 50.0 },
-        { "code": "QUALITY_FINISH", "label": "품질·마감",     "count": 2, "share_pct": 25.0 },
-        { "code": "CHANGE_OF_MIND", "label": "단순 변심",     "count": 2, "share_pct": 25.0 }
+        { "code": "SIZE_FIT",       "label": "사이즈·핏 문제",   "count": 22, "share_pct": 38.6 },
+        { "code": "CHANGE_OF_MIND", "label": "단순 변심",       "count": 18, "share_pct": 31.6 },
+        { "code": "QUALITY_FINISH", "label": "봉제·마감 불만",   "count": 5,  "share_pct": 8.8 },
+        { "code": "COLOR_IMAGE",    "label": "색상·이미지 차이", "count": 5,  "share_pct": 8.8 },
+        { "code": "SHIPPING",       "label": "배송·포장",       "count": 3,  "share_pct": 5.3 },
+        { "code": "OTHER",          "label": "기타·판단 불확실", "count": 2,  "share_pct": 3.5 },
+        { "code": "FABRIC_FEEL",    "label": "원단·촉감·두께",   "count": 1,  "share_pct": 1.8 },
+        { "code": "DEFECTIVE",      "label": "불량 제품",       "count": 1,  "share_pct": 1.8 }
       ],
+      "inputs": { "order_count": 277, "return_count": 57 },
+      "formula": "57 ÷ 277 × 100 = 20.6%",
       "notes": []
     }
   ]
 }
 ```
 
-> `return_rate_pct`는 **수량** 기준, `reasons[].share_pct`는 **건수** 기준. `basis`로 명시합니다.
+> 주문 단위 데이터이므로 **전부 건수 기준**입니다 (`basis: "count"`). 주문 1건 = 1장으로 간주합니다.
+> 위 수치는 `datasets/product_return_dataset_2000.csv`의 **실제 P002 값**입니다. 그대로 검증에 쓸 수 있습니다.
 
 ---
 

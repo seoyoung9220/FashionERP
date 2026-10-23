@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "return-analysis.schema.json",
+  "title": "ReturnAnalysis",
+  "description": "POST /api/returns/analyze 의 응답. 소유자: 서영. 검증: 예나. 관측된 사실과 AI 추정을 블록으로 분리하고, 모든 사실에 원문 근거를 연결한다.",
+  "type": "object",
+  "required": [
+    "product_id",
+    "analyzed_count",
+    "categories",
+    "observed_facts",
+    "possible_causes",
+    "checks_needed",
+    "improvement_checklist",
+    "insufficient_data",
+    "fallback"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "pattern": "^P[0-9]{3}$",
+      "description": "P001 ~ P008"
+    },
+    "period": {
+      "type": "object",
+      "required": ["from", "to"],
+      "additionalProperties": false,
+      "properties": {
+        "from": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "to": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+      }
+    },
+
+    "analyzed_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "분류에 사용한 반품 건수. categories[].count 의 합과 일치해야 한다."
+    },
+
+    "categories": {
+      "type": "array",
+      "description": "반품 사유 분류 결과. 건수 기준.",
+      "items": {
+        "type": "object",
+        "required": ["code", "label", "count", "share_pct"],
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "enum": [
+              "SIZE_FIT",
+              "COLOR_IMAGE",
+              "FABRIC_FEEL",
+              "QUALITY_FINISH",
+              "DEFECTIVE",
+              "SHIPPING",
+              "CHANGE_OF_MIND",
+              "OTHER"
+            ],
+            "description": "DATA/enums.json 의 return_reasons 코드만 허용"
+          },
+          "label": { "type": "string", "minLength": 1 },
+          "count": { "type": "integer", "minimum": 0 },
+          "share_pct": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "0~100, 소수 1자리. 0.42 가 아니라 42.0"
+          }
+        }
+      }
+    },
+
+    "observed_facts": {
+      "type": "array",
+      "description": "데이터에서 직접 확인되는 사실만. 추정을 섞지 않는다. evidence_quotes 는 입력 return_detail_text 에 실제로 존재하는 문장이어야 한다.",
+      "items": {
+        "type": "object",
+        "required": ["statement", "evidence_quotes", "evidence_order_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "statement": { "type": "string", "minLength": 1 },
+          "evidence_quotes": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 },
+            "description": "입력에 없는 문장을 생성하면 검증 실패"
+          },
+          "evidence_order_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 },
+            "description": "근거가 된 주문의 order_id. 입력에 존재해야 한다."
+          }
+        }
+      }
+    },
+
+    "possible_causes": {
+      "type": "array",
+      "description": "단정하지 않는 원인 후보. '~이다' 대신 '~가능성'. insufficient_data 가 true 면 빈 배열이어야 한다.",
+      "items": {
+        "type": "object",
+        "required": ["statement", "confidence"],
+        "additionalProperties": false,
+        "properties": {
+          "statement": { "type": "string", "minLength": 1 },
+          "confidence": { "enum": ["LOW", "MEDIUM", "HIGH"] },
+          "related_categories": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "SIZE_FIT",
+                "COLOR_IMAGE",
+                "FABRIC_FEEL",
+                "QUALITY_FINISH",
+                "DEFECTIVE",
+                "SHIPPING",
+                "CHANGE_OF_MIND",
+                "OTHER"
+              ]
+            }
+          }
+        }
+      }
+    },
+
+    "checks_needed": {
+      "type": "array",
+      "description": "사용자가 직접 확인할 항목. 실행 가능한 문장으로.",
+      "items": { "type": "string", "minLength": 1 }
+    },
+
+    "improvement_checklist": {
+      "type": "array",
+      "description": "등록 가능한 개선 작업. 상품 설명 개선(PAGE_FIX)과 실제 상품 수정(PRODUCT_FIX)을 구분한다. '검토', '확인' 수준까지만 제안하고 거래처 변경·패턴 변경을 권고하지 않는다.",
+      "items": {
+        "type": "object",
+        "required": ["title", "type", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "type": { "enum": ["PAGE_FIX", "PRODUCT_FIX"] },
+          "rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+
+    "size_color_findings": {
+      "type": "array",
+      "description": "특정 사이즈·색상에 반품이 집중되는지. 주문 데이터에 size·color 가 있으므로 산출 가능. 없으면 빈 배열.",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "value", "count", "share_pct"],
+        "additionalProperties": false,
+        "properties": {
+          "dimension": { "enum": ["size", "color"] },
+          "value": { "type": "string", "minLength": 1 },
+          "count": { "type": "integer", "minimum": 0 },
+          "share_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+        }
+      }
+    },
+
+    "cross_check": {
+      "type": "object",
+      "description": "반품의 DEFECTIVE·QUALITY_FINISH 범주와 입고 검수 불량 유형의 대조. 두 데이터의 대상 물량이 같은지 확인이 필요하므로 단정하지 않는다. 입고 불량 데이터가 없으면 이 필드를 생략한다.",
+      "required": ["statement", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "statement": { "type": "string", "minLength": 1 },
+        "confidence": { "enum": ["LOW", "MEDIUM", "HIGH"] }
+      }
+    },
+
+    "insufficient_data": {
+      "type": "boolean",
+      "description": "근거가 부족해 원인을 제시하지 않는 경우 true. 이때 possible_causes 는 빈 배열, notes 에 AI_UNCERTAIN 을 담는다."
+    },
+
+    "fallback": {
+      "type": "boolean",
+      "description": "LLM 호출 실패로 미리 준비된 응답을 반환한 경우 true. 이때도 HTTP 200 으로 반환한다."
+    },
+
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "enum": [
+              "LOW_CONFIDENCE",
+              "SMALL_SAMPLE",
+              "MISSING_COST",
+              "NOT_COMPUTABLE",
+              "AI_UNCERTAIN"
+            ]
+          },
+          "message": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

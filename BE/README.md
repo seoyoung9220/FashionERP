@@ -8,7 +8,7 @@
 
 ```
 BE/
-├── docs/api.md       API 명세 ← 태연 소유, 1:00 마감
+├── docs/api.md       API 명세 ← 태연 소유
 └── app/
     ├── models/       SQLite 테이블 8개
     ├── schemas/      요청·응답 모델 (Pydantic)
@@ -43,13 +43,13 @@ BE/
 
 ## 태연이 정할 것
 
-| 결정 | 마감 | 산출 |
+| 결정 | 합의 | 산출 |
 |---|---|---|
-| API 경로·요청·응답 | 1:00 ✅ 전원 합의 | [`docs/api.md`](./docs/api.md) |
-| 에러 형식·HTTP 코드 | 1:00 | [`docs/api.md`](./docs/api.md) |
-| **mock 응답 JSON** | 1:00 | `FE/src/mocks/*.json` ← FE가 이걸 기다림 |
-| 환경변수 이름 | 1:00 | [`.env.example`](../.env.example) |
-| JSON 공통 규약 | 1:00 ✅ 전원 합의 | [`CONVENTIONS.md`](../CONVENTIONS.md) |
+| API 경로·요청·응답 | ✅ 전원 | [`docs/api.md`](./docs/api.md) |
+| 에러 형식·HTTP 코드 | 아니오 | [`docs/api.md`](./docs/api.md) |
+| 🔴 **mock 응답 JSON 10개** | 아니오 | `FE/src/mocks/*.json` ← **윤지가 이걸 기다림** |
+| 환경변수 이름 | 아니오 | [`.env.example`](../.env.example) |
+| JSON 공통 규약 | ✅ 전원 | [`CONVENTIONS.md`](../CONVENTIONS.md) |
 
 ## 지켜야 할 것
 
