@@ -1,0 +1,504 @@
+<title>FOLD 시스템 구조</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#F6F5F2;
+  --panel:#FFFFFF;
+  --ink:#16181C;
+  --muted:#6B6862;
+  --rule:#DCD9D3;
+  --rule-soft:#E9E6E1;
+  --accent:#B0452A;
+  --ai:#44597C;
+  --ok:#3F6B4A;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#121318;
+    --panel:#191B21;
+    --ink:#E9E7E2;
+    --muted:#9A968E;
+    --rule:#2E313A;
+    --rule-soft:#23262D;
+    --accent:#DD7254;
+    --ai:#8AA2C9;
+    --ok:#7FB08C;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#121318;
+  --panel:#191B21;
+  --ink:#E9E7E2;
+  --muted:#9A968E;
+  --rule:#2E313A;
+  --rule-soft:#23262D;
+  --accent:#DD7254;
+  --ai:#8AA2C9;
+  --ok:#7FB08C;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans KR",system-ui,-apple-system,sans-serif;
+  font-weight:300;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1040px;margin:0 auto;padding:clamp(28px,5vw,72px) clamp(20px,4vw,40px) 96px}
+
+/* ── header ── */
+.mast{border-bottom:1px solid var(--ink);padding-bottom:20px;margin-bottom:8px}
+.mast-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.word{
+  font-family:"Instrument Serif",Georgia,serif;
+  font-size:clamp(38px,6vw,58px);
+  letter-spacing:-.01em;line-height:1;margin:0;
+}
+.word em{font-style:italic;color:var(--accent)}
+.kicker{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+.lede{
+  max-width:60ch;margin:18px 0 0;font-size:16px;color:var(--muted);
+}
+.lede strong{color:var(--ink);font-weight:500}
+
+/* ── section ── */
+section{margin-top:clamp(44px,6vw,72px)}
+.head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule);padding-bottom:9px;margin-bottom:22px}
+.num{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);
+  letter-spacing:.1em;flex:none;
+}
+h2{
+  font-family:"Instrument Serif",Georgia,serif;font-weight:400;
+  font-size:clamp(23px,3vw,30px);margin:0;letter-spacing:-.01em;text-wrap:balance;
+}
+.head .tail{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted)}
+h3{
+  font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  margin:30px 0 10px;
+}
+p{margin:0 0 14px;max-width:68ch}
+.note{font-size:14px;color:var(--muted);max-width:68ch}
+
+/* ── stats ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
+.stat{background:var(--panel);padding:16px 18px}
+.stat dt{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.stat dd{margin:0;font-size:26px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat dd span{font-size:13px;color:var(--muted);margin-left:3px}
+
+/* ── figure ── */
+figure{margin:0}
+.canvas{
+  background:var(--panel);border:1px solid var(--rule-soft);
+  padding:22px 20px;overflow-x:auto;
+}
+.canvas svg{display:block;min-width:620px;max-width:100%;height:auto;color:var(--ink)}
+figcaption{
+  margin-top:11px;font-size:13.5px;color:var(--muted);max-width:72ch;
+  padding-left:13px;border-left:2px solid var(--accent);
+}
+
+/* ── area cards ── */
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(226px,1fr));gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
+.area{background:var(--panel);padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px}
+.area-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--rule-soft);padding-bottom:9px}
+.area-name{font-family:"Instrument Serif",Georgia,serif;font-size:21px}
+.area-who{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted)}
+.area-stack{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--accent);letter-spacing:.01em}
+.area ul{margin:0;padding-left:15px;font-size:13.5px;display:flex;flex-direction:column;gap:5px}
+.area li::marker{color:var(--muted)}
+.area li b{font-weight:500}
+
+/* ── tables ── */
+.scroll{overflow-x:auto;border:1px solid var(--rule-soft);background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;
+  border-bottom:1px solid var(--rule);
+}
+tbody tr:last-child td{border-bottom:0}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+td code{color:var(--accent)}
+.verb{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;
+  letter-spacing:.07em;color:var(--muted);
+}
+.verb.post{color:var(--accent)}
+.verb.ai{color:var(--ai)}
+td.num-cell{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ── callout ── */
+.rail{
+  border-left:2px solid var(--accent);padding:2px 0 2px 16px;
+  margin:22px 0;max-width:70ch;
+}
+.rail p{margin:0 0 8px}
+.rail p:last-child{margin:0}
+.rail b{font-weight:500}
+
+footer{
+  margin-top:72px;padding-top:18px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);
+}
+@media (prefers-reduced-motion:no-preference){
+  .canvas svg [data-flow]{animation:dash 2.4s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-16}}
+}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mast-row">
+      <h1 class="word">FOLD<em>.</em></h1>
+      <span class="kicker">시스템 구조 · 해커톤 10조</span>
+    </div>
+    <p class="lede">
+      의류 사업 초기 판매자를 위한 AI ERP. 발주·입고 검수·판매·반품을 한 줄기로 관리하고,
+      <strong>불량률과 반품 원인을 다음 발주량과 수익성에 반영</strong>합니다.
+    </p>
+  </header>
+
+  <section>
+    <div class="head"><span class="num">01</span><h2>규모</h2><span class="tail">커밋 86</span></div>
+    <dl class="stats">
+      <div class="stat"><dt>FE</dt><dd>4,085<span>줄</span></dd></div>
+      <div class="stat"><dt>BE</dt><dd>4,409<span>줄</span></dd></div>
+      <div class="stat"><dt>AI</dt><dd>3,128<span>줄</span></dd></div>
+      <div class="stat"><dt>DATA</dt><dd>3,245<span>줄</span></dd></div>
+      <div class="stat"><dt>API</dt><dd>18<span>개</span></dd></div>
+      <div class="stat"><dt>테스트</dt><dd>73<span>통과</span></dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <div class="head"><span class="num">02</span><h2>전체 구조</h2><span class="tail">단일 출처</span></div>
+    <figure>
+      <div class="canvas">
+        <svg viewBox="0 0 920 626" role="img" aria-label="브라우저가 localhost:8000 하나로 화면과 API를 함께 받고, FastAPI 서비스 계층이 SQLite와 Gemini를 호출하며, LLM 실패 시 폴백 JSON이 HTTP 200으로 반환되는 구조">
+          <defs>
+            <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
+            <marker id="b1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ai)"/></marker>
+            <marker id="c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker>
+          </defs>
+          <g font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor">
+
+            <!-- 브라우저 -->
+            <rect x="60" y="24" width="800" height="86" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="76" y="46" font-size="11" fill="var(--muted)">브라우저 · http://localhost:8000</text>
+            <rect x="76" y="56" width="768" height="38" fill="none" stroke="currentColor" stroke-width=".7" stroke-dasharray="3 3"/>
+            <text x="92" y="80">FOLD 운영 콘솔 — 홈 · 재고·발주 · 불량 관리 · 수익 · 반품 분석</text>
+
+            <!-- fetch -->
+            <line x1="460" y1="110" x2="460" y2="156" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
+            <text x="474" y="137" font-size="11" fill="var(--muted)">fetch · 같은 출처 → CORS 불필요</text>
+
+            <!-- FastAPI -->
+            <rect x="60" y="156" width="800" height="222" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="76" y="178" font-size="11" fill="var(--muted)">FastAPI</text>
+
+            <rect x="84" y="190" width="186" height="52" fill="none" stroke="currentColor" stroke-width=".9"/>
+            <text x="100" y="213">StaticFiles</text>
+            <text x="100" y="230" font-size="10.5" fill="var(--muted)">FE/static 서빙</text>
+
+            <rect x="294" y="190" width="542" height="52" fill="none" stroke="currentColor" stroke-width=".9"/>
+            <text x="310" y="213">Routers 6</text>
+            <text x="310" y="230" font-size="10.5" fill="var(--muted)">imports · returns · tasks · quality · inventory · summary</text>
+
+            <rect x="84" y="266" width="752" height="88" fill="none" stroke="currentColor" stroke-width=".9"/>
+            <text x="100" y="289">Services 13</text>
+            <text x="100" y="308" font-size="10.5" fill="var(--muted)">defect · stock · inventory · profit · returns · trends · tasks · dashboard</text>
+            <rect x="100" y="318" width="150" height="26" fill="none" stroke="var(--ai)" stroke-width=".9"/>
+            <text x="116" y="336" font-size="11" fill="var(--ai)">ai.py</text>
+
+            <!-- 분기 -->
+            <line x1="260" y1="378" x2="260" y2="424" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
+            <line x1="660" y1="378" x2="660" y2="424" stroke="var(--ai)" stroke-width="1.2" marker-end="url(#b1)"/>
+            <text x="274" y="405" font-size="11" fill="var(--muted)">SQL</text>
+            <text x="674" y="405" font-size="11" fill="var(--ai)">HTTPS</text>
+
+            <!-- SQLite / Gemini -->
+            <rect x="84" y="424" width="352" height="56" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="100" y="447">SQLite · 8 테이블</text>
+            <text x="100" y="466" font-size="10.5" fill="var(--muted)">시작 시 자동 적재</text>
+
+            <rect x="484" y="424" width="352" height="56" fill="none" stroke="var(--ai)" stroke-width="1.2"/>
+            <text x="500" y="447" fill="var(--ai)">Gemini 3.8-flash</text>
+            <text x="500" y="466" font-size="10.5" fill="var(--muted)">responseSchema 강제 · temp 0.1</text>
+
+            <!-- CSV -->
+            <line x1="260" y1="546" x2="260" y2="486" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
+            <rect x="84" y="546" width="352" height="52" fill="none" stroke="currentColor" stroke-width=".9" stroke-dasharray="4 3"/>
+            <text x="100" y="569">CSV 7종</text>
+            <text x="100" y="587" font-size="10.5" fill="var(--muted)">주문 2,000건 · 반품 184건</text>
+
+            <!-- 폴백 -->
+            <line x1="660" y1="480" x2="660" y2="546" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#c1)" data-flow/>
+            <text x="674" y="518" font-size="11" fill="var(--accent)">503 / 429 · 재시도 2회 실패</text>
+            <rect x="484" y="546" width="352" height="52" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+            <text x="500" y="569" fill="var(--accent)">폴백 JSON</text>
+            <text x="500" y="587" font-size="10.5" fill="var(--muted)">HTTP 200 유지 — 시연이 멈추지 않음</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>
+        화면과 API가 <b>같은 주소(:8000)</b>라 CORS 설정이 없고 터미널 하나로 실행됩니다.
+        외부 호출은 Gemini 한 갈래뿐이며, 실패하면 폴백이 같은 형식으로 HTTP 200을 반환합니다.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="head"><span class="num">03</span><h2>영역별 구현</h2></div>
+    <div class="areas">
+      <div class="area">
+        <div class="area-top"><span class="area-name">FE</span><span class="area-who">윤지 · 태연</span></div>
+        <div class="area-stack">HTML · CSS · Vanilla JS</div>
+        <ul>
+          <li>화면 5개, <b>단일 파일</b></li>
+          <li>외부 라이브러리·빌드 <b>0</b></li>
+          <li><code>config.js</code> 한 줄로 주소 전환</li>
+          <li><b>formula 문자열을 그대로 출력</b></li>
+        </ul>
+      </div>
+      <div class="area">
+        <div class="area-top"><span class="area-name">BE</span><span class="area-who">태연</span></div>
+        <div class="area-stack">FastAPI · SQLite · pytest</div>
+        <ul>
+          <li>Routers 6 · Services 13</li>
+          <li>CSV 적재 + <b>검증 10종</b></li>
+          <li>모든 지표에 <code>inputs</code>·<code>formula</code></li>
+          <li>테스트 <b>50</b> 통과</li>
+        </ul>
+      </div>
+      <div class="area">
+        <div class="area-top"><span class="area-name">AI</span><span class="area-who">서영 · 예나</span></div>
+        <div class="area-stack">Gemini · JSON Schema 2020-12</div>
+        <ul>
+          <li>System 프롬프트 <b>3,205자</b></li>
+          <li>출력 필드 13 / 필수 9</li>
+          <li>근거 검증 <b>17종</b></li>
+          <li>테스트 <b>23</b> 통과</li>
+        </ul>
+      </div>
+      <div class="area">
+        <div class="area-top"><span class="area-name">DATA</span><span class="area-who">시환</span></div>
+        <div class="area-stack">CSV · 데이터 사전 · 지표 정의서</div>
+        <ul>
+          <li>주문 <b>2,000</b>건 · 288일</li>
+          <li>분류 체계 불량 8 · 반품 8</li>
+          <li>계산 <b>기대값 문서</b>로 역검증</li>
+          <li>개인정보 <b>0</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><span class="num">04</span><h2>네 지표가 서로를 보정한다</h2><span class="tail">차별점</span></div>
+    <figure>
+      <div class="canvas">
+        <svg viewBox="0 0 900 420" role="img" aria-label="입고 검수의 불량률이 재고·발주량·수익성 세 갈래로 전파되고, 반품 자유 서술은 AI 분석을 거쳐 개선 조치로 이어지는 관계도">
+          <defs>
+            <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
+            <marker id="b2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ai)"/></marker>
+            <marker id="c2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker>
+          </defs>
+          <g font-family="IBM Plex Mono, monospace" font-size="12" fill="currentColor">
+            <!-- sources -->
+            <rect x="40" y="40" width="140" height="52" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="56" y="63">입고 검수</text><text x="56" y="81" font-size="10.5" fill="var(--muted)">검수·불량 수량</text>
+
+            <rect x="40" y="130" width="140" height="52" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="56" y="153">판매</text><text x="56" y="171" font-size="10.5" fill="var(--muted)">주문 2,000건</text>
+
+            <rect x="40" y="220" width="140" height="52" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="56" y="243">반품</text><text x="56" y="261" font-size="10.5" fill="var(--muted)">184건 · 9.2%</text>
+
+            <!-- targets -->
+            <rect x="420" y="20" width="150" height="48" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="436" y="49">재고</text>
+            <rect x="420" y="110" width="150" height="48" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+            <text x="436" y="139" fill="var(--accent)">권장 발주량</text>
+            <rect x="420" y="200" width="150" height="48" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="436" y="229">수익성</text>
+
+            <!-- ai row -->
+            <rect x="420" y="310" width="150" height="48" fill="none" stroke="var(--ai)" stroke-width="1.4"/>
+            <text x="436" y="339" fill="var(--ai)">AI 반품 분석</text>
+            <rect x="700" y="310" width="160" height="48" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="716" y="339">개선 조치 등록</text>
+
+            <!-- edges from 입고검수 -->
+            <path d="M180 56 L420 44" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+            <text x="238" y="38" font-size="10.5" fill="var(--muted)">양품 수량</text>
+
+            <path d="M180 66 L420 128" fill="none" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#c2)"/>
+            <text x="232" y="102" font-size="10.5" fill="var(--accent)">불량률 보정</text>
+
+            <path d="M180 82 L420 218" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+            <text x="210" y="176" font-size="10.5" fill="var(--muted)">불량 손실</text>
+
+            <!-- 판매 → 발주량 -->
+            <path d="M180 150 L420 140" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+            <text x="248" y="134" font-size="10.5" fill="var(--muted)">최근 7일 일평균</text>
+
+            <!-- 재고 → 발주량 -->
+            <line x1="495" y1="68" x2="495" y2="108" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+            <text x="506" y="94" font-size="10.5" fill="var(--muted)">현재 재고</text>
+
+            <!-- 반품 → 수익성 -->
+            <path d="M180 240 L420 228" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+            <text x="252" y="222" font-size="10.5" fill="var(--muted)">반품 금액</text>
+
+            <!-- 반품 → AI -->
+            <polyline points="110,272 110,334 418,334" fill="none" stroke="var(--ai)" stroke-width="1.2" marker-end="url(#b2)"/>
+            <text x="140" y="326" font-size="10.5" fill="var(--ai)">자유 서술 184건</text>
+
+            <!-- AI → 조치 -->
+            <line x1="570" y1="334" x2="698" y2="334" stroke="var(--ai)" stroke-width="1.2" marker-end="url(#b2)"/>
+            <text x="578" y="326" font-size="10.5" fill="var(--ai)">개선 체크리스트</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>
+        불량률이 <b>세 갈래로 전파</b>됩니다. 100장이 필요하고 불량률이 5%면 발주량은 106장이 됩니다.
+        대시보드 네 개를 나란히 두는 것과 ERP의 차이가 이 화살표에 있습니다.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="head"><span class="num">05</span><h2>AI 파이프라인</h2><span class="tail">환각 차단 3겹</span></div>
+    <figure>
+      <div class="canvas">
+        <svg viewBox="0 0 900 250" role="img" aria-label="입력 생성부터 응답까지 5단계를 거치며 스키마 강제와 근거 검증 17종이 환각을 차단하고, LLM 실패 시 폴백이 응답 자리로 합류하는 파이프라인">
+          <defs>
+            <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
+            <marker id="b3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ai)"/></marker>
+            <marker id="c3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker>
+          </defs>
+          <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="currentColor">
+            <rect x="20" y="34" width="140" height="54" fill="none" stroke="currentColor" stroke-width="1.1"/>
+            <text x="34" y="58">입력 생성</text><text x="34" y="76" font-size="10" fill="var(--muted)">57건 → 14그룹</text>
+
+            <rect x="200" y="34" width="140" height="54" fill="none" stroke="var(--ai)" stroke-width="1.2"/>
+            <text x="214" y="58" fill="var(--ai)">LLM 호출</text><text x="214" y="76" font-size="10" fill="var(--muted)">temp 0.1</text>
+
+            <rect x="380" y="34" width="140" height="54" fill="none" stroke="currentColor" stroke-width="1.1"/>
+            <text x="394" y="58">스키마 강제</text><text x="394" y="76" font-size="10" fill="var(--muted)">필드 13 / 필수 9</text>
+
+            <rect x="560" y="34" width="140" height="54" fill="none" stroke="var(--ok)" stroke-width="1.2"/>
+            <text x="574" y="58" fill="var(--ok)">근거 검증</text><text x="574" y="76" font-size="10" fill="var(--muted)">17종</text>
+
+            <rect x="740" y="34" width="140" height="54" fill="none" stroke="currentColor" stroke-width="1.1"/>
+            <text x="754" y="58">응답</text><text x="754" y="76" font-size="10" fill="var(--muted)">HTTP 200</text>
+
+            <line x1="160" y1="61" x2="198" y2="61" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
+            <line x1="340" y1="61" x2="378" y2="61" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
+            <line x1="520" y1="61" x2="558" y2="61" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
+            <line x1="700" y1="61" x2="738" y2="61" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
+
+            <!-- fallback branch -->
+            <polyline points="270,88 270,176 378,176" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#c3)" data-flow/>
+            <text x="284" y="140" font-size="10.5" fill="var(--accent)">재시도 2회 실패</text>
+
+            <rect x="380" y="150" width="200" height="52" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+            <text x="394" y="173" fill="var(--accent)">폴백 JSON</text>
+            <text x="394" y="191" font-size="10" fill="var(--muted)">"fallback": true</text>
+
+            <polyline points="580,176 810,176 810,90" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#c3)"/>
+            <text x="606" y="168" font-size="10.5" fill="var(--muted)">같은 형식으로 합류</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>
+        환각은 세 지점에서 막힙니다 — 스키마가 <b>근거를 필수로</b> 요구하고,
+        검증이 인용문을 <b>원문과 글자 단위로</b> 대조하며, 근거 부족을 <b>반품 10건 미만</b>이라는 수치로 판정합니다.
+      </figcaption>
+    </figure>
+
+    <div class="rail">
+      <p><b>사실과 추정을 필드로 분리합니다.</b></p>
+      <p class="mono" style="font-size:12px;color:var(--muted)">
+        observed_facts — 근거 원문·order_id 필수<br>
+        possible_causes — confidence 필수, "~가능성"만<br>
+        checks_needed — 사용자가 확인할 것<br>
+        improvement_checklist — PAGE_FIX / PRODUCT_FIX
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><span class="num">06</span><h2>API</h2><span class="tail">18개</span></div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th style="width:62px">메서드</th><th style="width:34%">경로</th><th>역할</th></tr></thead>
+        <tbody>
+          <tr><td><span class="verb post">POST</span></td><td><code>/api/imports</code></td><td>CSV 업로드 · 검증 10종</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/dashboard</code></td><td>4개 영역 요약</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/quality/defect-rates</code></td><td>불량률 · 급증 판정 · 유형 비중</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/inventory</code></td><td>재고 · 소진 예상일 · 상태 5종</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/inventory/reorder</code></td><td>권장 발주량 + 산출 근거</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/inventory/value</code></td><td>재고 자산</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/profit</code></td><td>상품별 추정 기여이익</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/profit/monthly</code></td><td>월별 추이</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/profit/categories</code></td><td>카테고리별 수익</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/sales/daily</code></td><td>일별 매출</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/sales/momentum</code></td><td>매출 모멘텀</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/returns/rates</code></td><td>반품률 · 사유 비중</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/returns/review-keywords</code></td><td>후기 키워드</td></tr>
+          <tr><td><span class="verb ai">POST</span></td><td><code>/api/returns/analyze</code></td><td><b>AI 반품 원인 분석</b> — 실패 시 폴백 200</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/api/tasks</code></td><td>개선 조치 목록</td></tr>
+          <tr><td><span class="verb post">POST</span></td><td><code>/api/tasks</code></td><td>조치 등록</td></tr>
+          <tr><td><span class="verb post">PATCH</span></td><td><code>/api/tasks/{task_id}</code></td><td>상태 변경</td></tr>
+          <tr><td><span class="verb">GET</span></td><td><code>/health</code></td><td>서버 상태</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>응답 공통 규약</h3>
+    <p class="note">
+      키는 <code>snake_case</code>, 비율은 <code>_pct</code> 접미사에 0~100,
+      금액은 정수, 계산 불가는 <code>0</code>이 아닌 <code>null</code> + <code>notes</code>.
+      <b>모든 지표 응답에 <code>inputs</code>와 <code>formula</code>가 들어갑니다.</b>
+    </p>
+  </section>
+
+  <section>
+    <div class="head"><span class="num">07</span><h2>신뢰성 설계</h2></div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th style="width:30%">위험</th><th>대응</th><th style="width:28%">실제로 겪은 일</th></tr></thead>
+        <tbody>
+          <tr><td>AI 환각</td><td>근거 원문 필수 + 17종 검증</td><td>근거 없는 사실을 검증기가 포착</td></tr>
+          <tr><td>AI 과신</td><td>반품 10건 미만이면 원인 생성 금지</td><td>6건 상품에서 원인 3개 생성 → 수치 기준으로 해결</td></tr>
+          <tr><td>AI 월권</td><td>거래처 변경 권고 금지 + 자동 탐지</td><td>검사 자체가 없던 것을 발견해 추가</td></tr>
+          <tr><td>LLM 장애</td><td>재시도 2회 → 폴백 HTTP 200</td><td>503 → 타임아웃 → 무응답까지 겪음</td></tr>
+          <tr><td>계산 불일치</td><td>기대값 문서로 역검증</td><td>발주량 올림 시점 모호성 발견</td></tr>
+          <tr><td>팀 간 규약 충돌</td><td><code>CONVENTIONS.md</code> 사전 합의</td><td>반품률 기간 불일치 조기 포착</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>FOLD · AI Fashion Operations</span>
+    <span>해커톤 10조 · 윤지 태연 서영 예나 시환</span>
+  </footer>
+
+</div>
