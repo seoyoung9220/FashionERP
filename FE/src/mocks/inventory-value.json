@@ -1,0 +1,124 @@
+{
+  "as_of": "2026-10-24",
+  "basis": "cost",
+  "total_qty": 234,
+  "total_value": 9160000,
+  "excluded": [],
+  "items": [
+    {
+      "product_id": "P001",
+      "product_name": "오버핏 울 코트",
+      "stock_qty": 32,
+      "unit_cost": 82000,
+      "stock_value": 2624000,
+      "inputs": {
+        "stock_qty": 32,
+        "unit_cost": 82000
+      },
+      "formula": "32장 × 82,000원 = 2,624,000원",
+      "notes": []
+    },
+    {
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "stock_qty": 20,
+      "unit_cost": 23000,
+      "stock_value": 460000,
+      "inputs": {
+        "stock_qty": 20,
+        "unit_cost": 23000
+      },
+      "formula": "20장 × 23,000원 = 460,000원",
+      "notes": []
+    },
+    {
+      "product_id": "P003",
+      "product_name": "패딩 베스트",
+      "stock_qty": 66,
+      "unit_cost": 41000,
+      "stock_value": 2706000,
+      "inputs": {
+        "stock_qty": 66,
+        "unit_cost": 41000
+      },
+      "formula": "66장 × 41,000원 = 2,706,000원",
+      "notes": []
+    },
+    {
+      "product_id": "P004",
+      "product_name": "크롭 니트 가디건",
+      "stock_qty": 31,
+      "unit_cost": 31000,
+      "stock_value": 961000,
+      "inputs": {
+        "stock_qty": 31,
+        "unit_cost": 31000
+      },
+      "formula": "31장 × 31,000원 = 961,000원",
+      "notes": []
+    },
+    {
+      "product_id": "P005",
+      "product_name": "플리츠 롱스커트",
+      "stock_qty": 19,
+      "unit_cost": 22000,
+      "stock_value": 418000,
+      "inputs": {
+        "stock_qty": 19,
+        "unit_cost": 22000
+      },
+      "formula": "19장 × 22,000원 = 418,000원",
+      "notes": []
+    },
+    {
+      "product_id": "P006",
+      "product_name": "루즈핏 스웨트셔츠",
+      "stock_qty": 17,
+      "unit_cost": 19000,
+      "stock_value": 323000,
+      "inputs": {
+        "stock_qty": 17,
+        "unit_cost": 19000
+      },
+      "formula": "17장 × 19,000원 = 323,000원",
+      "notes": []
+    },
+    {
+      "product_id": "P007",
+      "product_name": "심플 로고 맨투맨",
+      "stock_qty": 17,
+      "unit_cost": 36000,
+      "stock_value": 612000,
+      "inputs": {
+        "stock_qty": 17,
+        "unit_cost": 36000
+      },
+      "formula": "17장 × 36,000원 = 612,000원",
+      "notes": []
+    },
+    {
+      "product_id": "P008",
+      "product_name": "기모 후드 집업",
+      "stock_qty": 32,
+      "unit_cost": 33000,
+      "stock_value": 1056000,
+      "inputs": {
+        "stock_qty": 32,
+        "unit_cost": 33000
+      },
+      "formula": "32장 × 33,000원 = 1,056,000원",
+      "notes": []
+    }
+  ],
+  "inputs": {
+    "product_count": 8,
+    "valued_product_count": 8
+  },
+  "formula": "Σ(상품별 현재 재고 × 원가) = 9,160,000원 · 재고 234장",
+  "notes": [
+    {
+      "code": null,
+      "message": "원가(products.cost) 기준 평가 · 반품은 전량 재고 복귀 가정 (metrics.md §2)"
+    }
+  ]
+}
