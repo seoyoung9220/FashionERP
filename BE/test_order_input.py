@@ -37,11 +37,32 @@ def test_add_order_appends_one_row(conn):
     assert after["gross_sales"] == before["gross_sales"] + 189000      # 판매가(정가) 1장
 
 
-def test_order_id_sequence_is_unique(conn):
-    a = add_order(conn, {"date": "2026-10-25", "product_id": "P002", "size": "L", "color": "Blue"})["order"]["order_id"]
-    b = add_order(conn, {"date": "2026-10-25", "product_id": "P002", "size": "L", "color": "Blue"})["order"]["order_id"]
-    assert a == "P002-20261025-0001" and b == "P002-20261025-0002"
+@pytest.fixture
+def today(monkeypatch):
+    """'오늘'을 고정해 실행 날짜와 관계없이 같은 결과가 나오게 합니다."""
+    monkeypatch.setattr("app.services.order_input.today_kst", lambda: date(2026, 10, 30))
+
+
+def test_order_id_sequence_is_unique(conn, today):
+    a = add_order(conn, {"date": "2026-10-25", "product_id": "P002", "size": "L", "color": "Blue"})
+    b = add_order(conn, {"date": "2026-10-25", "product_id": "P002", "size": "L", "color": "Blue"})
+    assert a["order"]["order_id"] == "P002-20261025-0001" and b["order"]["order_id"] == "P002-20261025-0002"
     assert data_as_of(conn) == date(2026, 10, 25)                        # 새 날짜가 기준일이 됨
+    assert any("기준일" in w["message"] for w in a["warnings"])          # 기준일이 바뀌면 경고
+    assert not any("기준일" in w["message"] for w in b["warnings"])      # 같은 날 두 번째는 바뀌지 않음
+
+
+def test_future_date_is_rejected(conn, today):
+    for day in ("2026-10-31", "2062-10-24"):                             # 내일 · 연도 오타
+        with pytest.raises(AppError) as e:
+            add_order(conn, {"date": day, "product_id": "P001", "size": "M", "color": "Black"})
+        assert e.value.status == 400 and e.value.details[0]["column"] == "date"
+    assert count(conn, "sales") == 2000 and data_as_of(conn) == date(2026, 10, 24)
+
+
+def test_order_on_as_of_has_no_date_warning(conn, today):
+    r = add_order(conn, {"date": "2026-10-24", "product_id": "P001", "size": "M", "color": "Black"})
+    assert not any("기준일" in w["message"] for w in r["warnings"])
 
 
 def test_return_order_creates_return_row(conn):

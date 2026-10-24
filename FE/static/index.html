@@ -527,7 +527,7 @@ async function home(){
         <div class="chartbox" id="wk">${LIVE ? LOADING : empty(NODATA(), NODESC)}</div><div id="wkf"></div></section>
       <section class="blk"><div class="sh"><h2>오늘 확인할 이슈</h2></div><div class="blk" id="issues" style="gap:10px">${empty(NODATA(), "재고·불량·반품에서 먼저 볼 항목이 여기에 모입니다.")}</div></section>
     </div>
-    <section class="card round blk" style="margin-top:22px;padding:16px 18px" aria-labelledby="ordh"><div class="sh"><div><div class="eyebrow">NEW DATA</div><h2 id="ordh" style="font-size:18px">새 주문 입력</h2><div class="sub small muted">새로 들어온 주문 1건을 추가해요. 주문번호·상품명·카테고리는 자동으로 채워져요. (1주문 = 1장)</div></div></div>
+    <section class="card round blk" style="margin-top:22px;padding:16px 18px" aria-labelledby="ordh"><div class="sh"><div><div class="eyebrow">NEW DATA</div><h2 id="ordh" style="font-size:18px">새 주문 입력</h2><div class="sub small muted">새로 들어온 주문 1건을 추가해요. 주문번호·상품명·카테고리는 자동으로 채워져요. (1주문 = 1장) 주문일은 데이터 기준일로 미리 채워지고, 오늘 이후 날짜는 넣을 수 없어요.</div></div></div>
       <form id="ordf" class="ord" novalidate>
         <label>주문일<input type="date" name="date" required></label>
         <label>상품<select name="product_id" required><option value="">상품 선택</option></select></label>
@@ -574,23 +574,27 @@ async function orderForm(){
   if (!LIVE || SNAPMODE) { [...f.elements].forEach(el => el.disabled = true); say(SNAPMODE ? "스냅샷 보기에서는 입력할 수 없어요. 내 컴퓨터 서버(http://localhost:8000)에서 입력해 주세요." : "백엔드에 연결되면 입력할 수 있어요.", true); return; }
   const [inv, d] = await Promise.all([safe(get("/api/inventory")), safe(get("/api/dashboard"))]);
   (inv?.items || []).forEach(i => f.product_id.insertAdjacentHTML("beforeend", `<option value="${esc(i.product_id)}">${esc(i.product_name)} (${esc(i.product_id)})</option>`));
-  const t = new Date(); f.date.value = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  // 기본값은 오늘이 아니라 데이터 기준일(as_of): 나중 날짜 1건만 넣어도 기준일이 밀려 최근 7일 지표가 비기 때문 (서버도 미래 날짜 거절)
+  const t = new Date(), today = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  f.date.max = today; f.date.value = d?.as_of && d.as_of <= today ? d.as_of : today;
+  const COL = {date:"주문일", product_id:"상품", size:"사이즈", color:"색상", is_returned:"반품 여부", return_type_code:"반품 유형", return_detail_text:"반품 사유"};
   f.onsubmit = async e => {
     e.preventDefault();
     const body = {date: f.date.value, product_id: f.product_id.value, size: f.size.value.trim(), color: f.color.value.trim(),
                   is_returned: f.is_returned.checked, return_type_code: f.return_type_code.value, return_detail_text: f.return_detail_text.value.trim()};
     const miss = [["date","주문일"],["product_id","상품"],["size","사이즈"],["color","색상"]].filter(([k]) => !body[k]).map(([, l]) => l);
     if (miss.length) return say(`${miss.join(", ")}을(를) 입력해 주세요.`, true);
+    if (body.date > today) return say("주문일: 오늘 이후 날짜는 넣을 수 없어요.", true);
     btn.disabled = true; say("저장하는 중…");
     try {
       const r = await fetch(BASE + "/api/sales", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
       const j = await r.json().catch(() => ({}));
-      if (!r.ok) { const det = (j?.error?.details || []).map(x => `${x.column}: ${x.message}`).join(" · "); throw new Error((j?.error?.message || `저장 실패 (${r.status})`) + (det ? " — " + det : "")); }
+      if (!r.ok) { const det = (j?.error?.details || []).map(x => `${COL[x.column] || x.column}: ${x.message}`).join(" · "); throw new Error((j?.error?.message || `저장 실패 (${r.status})`) + (det ? " — " + det : "")); }
       Object.keys(cache).forEach(k => delete cache[k]);
       toast(`주문 ${j.order.order_id} 추가됨`);
       await home();
       const m2 = document.getElementById("ordmsg");
-      if (m2) { m2.textContent = `저장됨: ${j.order.order_id} · ${j.order.product_name} ${j.order.size}/${j.order.color}${j.return_id ? " · 반품 " + j.return_id : ""}${j.warnings?.length ? " · 확인: " + j.warnings.map(w => w.message).join(", ") : ""}`; m2.style.color = "var(--sage)"; }
+      if (m2) { m2.textContent = `저장됨: ${j.order.order_id} · ${j.order.product_name} ${j.order.size}/${j.order.color}${j.return_id ? " · 반품 " + j.return_id : ""}${j.warnings?.length ? " · 확인: " + j.warnings.map(w => w.message).join(", ") : ""}`; m2.style.color = j.warnings?.length ? "var(--amber)" : "var(--sage)"; }
     } catch (err) { say(err.message, true); btn.disabled = false; }
   };
 }

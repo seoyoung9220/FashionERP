@@ -693,6 +693,7 @@
 - `order_id` 는 `{product_id}-{YYYYMMDD}-{일련번호}` 로 자동 생성, `product_name`·`category` 는 products 에서 채웁니다. 1주문 = 1장.
 - 반품이면 returns 에 1행 추가(`return_id` 자동). 반품 유형은 영문 코드 또는 한글 라벨 모두 받고 코드로 저장합니다.
 - 반품인데 유형이 비어 있으면 `return_type_code: null` 로 저장하고 `warnings` 에 담습니다 (규칙 11, 0 아님).
+- 🔴 **날짜**: 기준일(as_of) = 주문 데이터의 마지막 날짜이므로, **오늘(KST) 이후 날짜는 400 `VALIDATION_FAILED`(column `date`)** 로 거절합니다. 기준일보다 나중 날짜(오늘 이하)는 저장하되 `warnings` 에 "데이터 기준일이 A → B 로 바뀌어…"를 담습니다. 화면은 주문일 기본값을 오늘이 아니라 기준일로 채웁니다.
 
 요청
 ```json
