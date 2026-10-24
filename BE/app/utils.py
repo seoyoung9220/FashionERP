@@ -80,5 +80,11 @@ def data_as_of(conn) -> date:
     return date.fromisoformat(row[0]) if row and row[0] else today_kst()
 
 
+def data_start(conn) -> date:
+    """주문 데이터의 첫 날짜. 반품률 기본 기간(전체 데이터 기간)의 시작입니다. 데이터가 없으면 as_of."""
+    row = conn.execute("SELECT MIN(sold_at) FROM sales").fetchone()
+    return date.fromisoformat(row[0]) if row and row[0] else data_as_of(conn)
+
+
 def period_ending(as_of: date, days: int) -> tuple[str, str]:
     return (as_of - timedelta(days=days - 1)).isoformat(), as_of.isoformat()
