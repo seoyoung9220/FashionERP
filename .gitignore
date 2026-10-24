@@ -10,3 +10,7 @@ venv/
 .venv/
 dist/
 build/
+
+# 검증용 로컬 DB
+BE/verify.db
+BE/.venv/
