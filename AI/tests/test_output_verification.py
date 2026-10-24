@@ -120,7 +120,11 @@ class OutputVerificationTests(unittest.TestCase):
         self.assertEqual(verify(fallback, self.payload), [])
 
     def test_p002_fallback_full_json_schema(self):
-        from jsonschema import Draft202012Validator
+        # jsonschema 는 선택 의존성(AI/requirements.txt). 없으면 실패가 아니라 skip 한다.
+        try:
+            from jsonschema import Draft202012Validator
+        except ImportError:
+            self.skipTest("jsonschema 미설치: pip install -r AI/requirements.txt")
 
         with (ROOT / "AI" / "schemas" / "return-analysis.schema.json").open(encoding="utf-8") as f:
             schema = json.load(f)

@@ -14,6 +14,7 @@ import csv
 import json
 import os
 import pathlib
+import time
 import unittest
 import urllib.error
 import urllib.request
@@ -137,8 +138,22 @@ def classify_with_gemini(api_key, model, cases, codes, labels):
         data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
         headers={"Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(request, timeout=180) as response:
-        result = json.load(response)
+    # 503(과부하)·429(레이트리밋)는 일시적이다. 재시도 없이 skip 하면
+    # 일시 장애가 "성공(skipped)"처럼 보여 분류 검증이 영영 안 돌 수 있다.
+    # AI/prompts/run_analysis.py 와 같은 정책(최대 2회 재시도).
+    last_error = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=180) as response:
+                result = json.load(response)
+            break
+        except urllib.error.HTTPError as error:
+            last_error = error
+            if error.code not in (429, 500, 503) or attempt == 2:
+                raise
+            time.sleep(5 * (attempt + 1))
+    else:
+        raise last_error
     text = result["candidates"][0]["content"]["parts"][0]["text"]
     return json.loads(text)
 
