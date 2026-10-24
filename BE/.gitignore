@@ -1,0 +1,6 @@
+# 비밀값과 로컬 파일은 커밋하지 않습니다 (CONVENTIONS §11)
+.env
+.venv/
+*.db
+__pycache__/
+.pytest_cache/
