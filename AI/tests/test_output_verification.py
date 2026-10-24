@@ -241,6 +241,58 @@ class OutputVerificationTests(unittest.TestCase):
         out["possible_causes"] = [{"statement": "원인일 가능성이 있습니다.", "confidence": "LOW"}]
         assert_error(self, out, payload, "possible_causes 가 비어 있지 않음")
 
+    # --- 금지 사항 #4: 원인을 단정적으로 표현 (AI/README.md) ---
+
+    def test_assertive_cause_rejected(self):
+        out, payload = sample_output("P002")
+        out["possible_causes"] = [
+            {"statement": "허리 둘레가 좁게 제작되었기 때문이다.", "confidence": "HIGH"}
+        ]
+        assert_error(self, out, payload, "단정 표현")
+
+    def test_hedged_cause_accepted(self):
+        out, payload = sample_output("P002")
+        out["possible_causes"] = [
+            {"statement": "허리 둘레가 기대와 다를 가능성이 있습니다", "confidence": "MEDIUM"}
+        ]
+        self.assertEqual(
+            [e for e in verify(out, payload) if "단정 표현" in e], [],
+            "완충 표현('~가능성')은 통과해야 합니다",
+        )
+
+    # --- 금지 사항 #7: 거래처·패턴 변경을 권고 (AI/README.md) ---
+    # 체크리스트는 "검토·확인·비교" 수준까지만 허용한다.
+
+    def test_supplier_change_recommendation_rejected(self):
+        out, payload = sample_output("P002")
+        out["improvement_checklist"] = [
+            {"title": "성수봉제를 다른 거래처로 변경",
+             "type": "PRODUCT_FIX", "rationale": "불량률이 높습니다"}
+        ]
+        assert_error(self, out, payload, "변경 권고")
+
+    def test_pattern_change_recommendation_rejected(self):
+        out, payload = sample_output("P002")
+        out["improvement_checklist"] = [
+            {"title": "허리 패턴을 변경",
+             "type": "PRODUCT_FIX", "rationale": "타이트하다는 의견이 많음"}
+        ]
+        assert_error(self, out, payload, "변경 권고")
+
+    def test_supplier_review_accepted(self):
+        """같은 '거래처' 문장이라도 검토·확인 수준이면 허용된다 (오탐 방지)."""
+        out, payload = sample_output("P002")
+        out["improvement_checklist"] = [
+            {"title": "거래처에 봉제 불량 전달 후 다음 입고 검수 기준 확인",
+             "type": "PRODUCT_FIX", "rationale": "반품 의견과 입고 불량의 교차 대조가 필요합니다"},
+            {"title": "거래처 변경을 검토하기 전에 표본 수 비교",
+             "type": "PRODUCT_FIX", "rationale": "표본이 적어 단정할 수 없습니다"},
+        ]
+        self.assertEqual(
+            [e for e in verify(out, payload) if "변경 권고" in e], [],
+            "검토·확인·비교 표현이 있으면 통과해야 합니다",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

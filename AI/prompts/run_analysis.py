@@ -187,6 +187,16 @@ def verify(out, payload):
     for c in out.get("possible_causes", []):
         if re.search(r"(때문이다|때문입니다|입니다\.$|이다\.$)", c.get("statement", "")):
             f.append(f"단정 표현 의심: {c['statement'][:50]}")
+
+    # 금지 #7 — 거래처·공장 변경이나 패턴 변경을 "권고"하지 않는다.
+    # 체크리스트는 "검토·확인·비교" 수준까지만 허용한다 (AI/README.md).
+    # 같은 문장 안에 완충어가 있으면 제안이 아니라 검토 요청으로 본다.
+    change = r"(거래처|공장|협력사|공급처|생산처|업체|패턴|원단)[^.]{0,20}(변경|교체|전환|바꾸|중단|해지)"
+    hedge = r"(검토|확인|비교|점검|고려|논의|평가)"
+    for t in out.get("improvement_checklist", []):
+        text = f"{t.get('title', '')} {t.get('rationale', '')}"
+        if re.search(change, text) and not re.search(hedge, text):
+            f.append(f"거래처·패턴 변경 권고 의심: {t.get('title', '')[:50]}")
     return f
 
 
