@@ -241,9 +241,12 @@
 
 ## GET /api/returns/rates
 
+**쿼리**: `from` · `to` (YYYY-MM-DD) · `product_id` — **생략하면 전체 데이터 기간**(첫 주문일 ~ 마지막 주문일)으로 계산합니다.
+기간을 주면 그 기간의 주문일 기준으로 계산합니다. (수익성 `/api/profit`의 기본은 최근 30일로 다릅니다)
+
 ```json
 {
-  "period": { "from": "2026-09-25", "to": "2026-10-24" },
+  "period": { "from": "2026-01-10", "to": "2026-10-24" },
   "items": [
     {
       "product_id": "P002",
@@ -272,6 +275,156 @@
 
 > 주문 단위 데이터이므로 **전부 건수 기준**입니다 (`basis: "count"`). 주문 1건 = 1장으로 간주합니다.
 > 위 수치는 `datasets/product_return_dataset_2000.csv`의 **실제 P002 값**입니다. 그대로 검증에 쓸 수 있습니다.
+
+---
+
+## GET /api/returns/review-keywords
+
+반품 리뷰 문장(`return_detail_text`)을 **규칙 기반 키워드 사전**으로 분류합니다. AI 호출이 없어 같은 입력이면 항상 같은 결과입니다.
+코드: `BE/app/services/review_keywords.py` · 테스트: `BE/test_review_keywords.py` · mock: `FE/src/mocks/review-keywords.json`
+
+**쿼리**: `from` · `to` · `product_id` — 생략하면 **전체 데이터 기간** (`/api/returns/rates`와 같은 기준)
+
+| 분류 코드 | 라벨 | 대표 키워드 (실제 리뷰 표현) |
+|---|---|---|
+| `SIZE_FIT` | 사이즈·핏 | 사이즈 · 작게 · 품이 · 기장 · 타이트 · 허리 · 골반 |
+| `QUALITY` | 품질·마감 | 마감 · 실밥 · 올이 풀 · 오염 · 지퍼 · 뻑뻑 |
+| `FABRIC` | 소재·원단 | 원단 · 얇아 · 소재 · 까끌 |
+| `COLOR` | 색상·이미지 차이 | 색감 · 사진과 · 화면보다 · 어두운 |
+| `DESIGN` | 디자인·실물 느낌 | 실물 · 느낌이 아니 |
+| `SHIPPING` | 배송·포장 | 배송 · 늦어 · 박스 · 찌그러 · 패키지 · 손상 |
+| `CHANGE_OF_MIND` | 단순 변심·개인 사정 | 선물 · 일정 · 다른 색상 · 더 나을 것 같 |
+| `UNCLASSIFIED` | 분류 불가 | 키워드 없음 또는 "기타 사유로 …"처럼 원인을 말하지 않는 문장 |
+
+> **집계 기준** — 한 리뷰에 여러 분류 키워드가 있으면 **각 분류에 1건씩** 셉니다 (`multi_label_count`).
+> `share_pct = 분류별 리뷰 수 ÷ analyzed_count × 100` 이므로 **합계가 100%를 넘을 수 있습니다.**
+> `reason_code_cross`는 고객이 고른 반품 사유(`return_type_code`)와 문장 분류의 교차 건수입니다.
+> 이 분류 코드는 화면 표시용 별도 체계이며 `enums.json`의 `return_reasons`와 다릅니다. ([계약변경] 신규 API)
+
+```json
+{
+  "period": {
+    "from": "2026-01-10",
+    "to": "2026-10-24"
+  },
+  "product_id": null,
+  "return_count": 184,
+  "basis": "review",
+  "analyzed_count": 184,
+  "unique_text_count": 17,
+  "classified_count": 179,
+  "unclassified_count": 5,
+  "multi_label_count": 0,
+  "categories": [
+    {
+      "code": "QUALITY",
+      "label": "품질·마감",
+      "count": 44,
+      "share_pct": 23.9,
+      "keywords": [
+        {
+          "keyword": "마감",
+          "count": 22
+        },
+        {
+          "keyword": "지퍼",
+          "count": 17
+        }
+      ],
+      "example": {
+        "order_id": "P008-20260628-0006",
+        "product_id": "P008",
+        "text": "지퍼 윗부분이 뻑뻑해서 잘 잠기지 않습니다"
+      }
+    },
+    {
+      "code": "CHANGE_OF_MIND",
+      "label": "단순 변심·개인 사정",
+      "count": 40,
+      "share_pct": 21.7,
+      "keywords": [
+        {
+          "keyword": "선물",
+          "count": 22
+        },
+        {
+          "keyword": "일정",
+          "count": 22
+        }
+      ],
+      "example": {
+        "order_id": "P002-20261005-0082",
+        "product_id": "P002",
+        "text": "선물하려고 했는데 일정이 취소되었어요"
+      }
+    },
+    {
+      "…": "8개 분류 중 2개만 표시"
+    }
+  ],
+  "top_keywords": [
+    {
+      "keyword": "선물",
+      "category": "CHANGE_OF_MIND",
+      "category_label": "단순 변심·개인 사정",
+      "count": 22,
+      "share_pct": 12.0
+    },
+    {
+      "keyword": "일정",
+      "category": "CHANGE_OF_MIND",
+      "category_label": "단순 변심·개인 사정",
+      "count": 22,
+      "share_pct": 12.0
+    }
+  ],
+  "sample_review": {
+    "order_id": "P008-20260628-0006",
+    "product_id": "P008",
+    "text": "지퍼 윗부분이 뻑뻑해서 잘 잠기지 않습니다",
+    "matches": [
+      {
+        "keyword": "지퍼",
+        "category": "QUALITY",
+        "category_label": "품질·마감"
+      },
+      {
+        "keyword": "뻑뻑",
+        "category": "QUALITY",
+        "category_label": "품질·마감"
+      },
+      {
+        "keyword": "잠기지 않",
+        "category": "QUALITY",
+        "category_label": "품질·마감"
+      }
+    ]
+  },
+  "reason_code_cross": [
+    {
+      "reason_code": "CHANGE_OF_MIND",
+      "category": "CHANGE_OF_MIND",
+      "count": 40
+    },
+    {
+      "reason_code": "SIZE_FIT",
+      "category": "SIZE_FIT",
+      "count": 36
+    }
+  ],
+  "inputs": {
+    "analyzed_count": 184,
+    "classified_count": 179
+  },
+  "formula": "분류 비율 = 분류별 리뷰 수 ÷ 분석 리뷰 수 × 100 (한 리뷰가 여러 분류면 각각 1건, 합계 100% 초과 가능)",
+  "notes": [
+    {
+      "code": "LOW_CONFIDENCE",
+      "message": "서로 다른 리뷰 문장이 17종뿐이라 같은 문장이 반복됩니다. 키워드 다양성이 낮습니다"
+    }
+  ]
+}
+```
 
 ---
 
