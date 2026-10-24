@@ -48,3 +48,14 @@ app.include_router(summary.router)
 @app.get("/health", tags=["상태"])
 def health():
     return {"status": "ok"}
+
+
+# ───── 화면 제공 (BE/static/index.html) ─────
+# 같은 주소(localhost:8000)에서 화면과 API를 함께 제공합니다 → 포트 하나, CORS 불필요.
+# 🔴 반드시 모든 include_router·@app.get 보다 '아래'에 둡니다. 위에 두면 "/" 가 모든 경로를 가로채 API가 막힙니다.
+# 폴더 경로는 BE 폴더 기준으로 고정해, 어느 위치에서 uvicorn 을 실행해도 동작하게 합니다.
+from fastapi.staticfiles import StaticFiles  # noqa: E402
+
+from app.config import BE_DIR  # noqa: E402
+
+app.mount("/", StaticFiles(directory=BE_DIR / "static", html=True), name="static")

@@ -1,11 +1,13 @@
 """재고·발주
 GET /api/inventory           쿼리: sales_window_days (기본 7)
 GET /api/inventory/reorder   쿼리: target_cover_days (기본 14) · sales_window_days (기본 7)
+GET /api/inventory/value     전체 재고자산 (현재 재고 × 원가)
 """
 from fastapi import APIRouter, Depends, Query
 
 from app.database import get_db
 from app.services import stock
+from app.services.trends import inventory_value
 from app.utils import data_as_of
 
 router = APIRouter(prefix="/api/inventory", tags=["재고·발주"])
@@ -30,3 +32,8 @@ def get_reorder(target_cover_days: int = Query(14, ge=0), sales_window_days: int
         "target_cover_days": target_cover_days,
         "items": stock.reorder(conn, as_of, target_cover_days, sales_window_days),
     }
+
+
+@router.get("/value")
+def get_inventory_value(conn=Depends(get_db)):
+    return inventory_value(conn, data_as_of(conn))
