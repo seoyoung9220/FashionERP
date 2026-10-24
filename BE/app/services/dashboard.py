@@ -44,7 +44,7 @@ def summary(conn, as_of, date_from: str, date_to: str) -> dict:
         notes.append(note("MISSING_COST"))
 
     orders = conn.execute("SELECT COUNT(*) FROM sales").fetchone()[0]
-    reasons = Counter(r[0] for r in conn.execute("SELECT return_type_code FROM returns WHERE return_type_code IS NOT NULL"))
+    reasons = Counter(r[0] for r in conn.execute("SELECT return_type_code FROM returns WHERE return_type_code IS NOT NULL ORDER BY rowid"))
     n_ret = sum(reasons.values())
 
     def box(code):
