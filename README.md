@@ -383,17 +383,105 @@ FashionERP/
 > 🔴 이 CSV에는 **UTF-8 BOM**이 있습니다. 반드시 `utf-8-sig`로 읽으세요. 그냥 `utf-8`로 읽으면 첫 열 이름이 `﻿date`가 됩니다.
 > 수량·가격·원가 열이 없어 **불량률·재고·정산은 시환의 추가 CSV 5개**가 필요합니다 ([`DATA/dictionary.md`](./DATA/dictionary.md) §2).
 
-## 시작하기
+## 실행 방법
+
+### 준비 (처음 한 번만)
 
 ```bash
 git clone https://github.com/seoyoung9220/FashionERP.git
 cd FashionERP
-cp .env.example .env     # 값 채우기. .env 는 커밋하지 않습니다
+
+# 1) 백엔드 의존성
+cd BE
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+cd ..
+
+# 2) API 키 (AI 분석을 쓸 때만 필요)
+cp .env.example .env
 ```
 
-1. [`CONVENTIONS.md`](./CONVENTIONS.md)를 읽습니다 — 특히 **§1 누가 무엇을 정하는가**와 **§5 숫자**
-2. 본인 영역 폴더의 README를 읽습니다
-3. [`CONVENTIONS.md` §1 의존 순서](./CONVENTIONS.md)에서 본인이 누구를 기다리는지 확인합니다
+`.env`를 열어 두 줄을 채웁니다. 키는 https://aistudio.google.com/apikey 에서 무료로 발급받습니다.
+
+```
+LLM_API_KEY=발급받은키
+LLM_MODEL=gemini-3.8-flash
+```
+
+> 🔴 `=` 앞뒤 **공백 금지**, **따옴표 금지**. `.env`는 **저장소 루트**에 둡니다 (`BE/` 아래 아님).
+> `.gitignore`에 있어서 커밋되지 않습니다. **각자 자기 키를 쓰세요** — 키를 공유하면 레이트리밋이 한곳에 몰립니다.
+> 키가 없어도 화면과 지표는 전부 동작합니다. AI 분석만 폴백(고정 응답)으로 나옵니다.
+
+### 실행
+
+```bash
+cd BE
+.venv/bin/uvicorn app.main:app --reload
+```
+
+| 주소 | 내용 |
+|---|---|
+| **http://localhost:8000** | **화면** (FOLD 운영 콘솔) |
+| http://localhost:8000/docs | API 문서 (Swagger) |
+| http://localhost:8000/health | 서버 상태 확인 |
+
+터미널 **하나만** 띄우면 됩니다. FastAPI가 `FE/static/`을 함께 서빙하므로 화면과 API가 **같은 주소**입니다 (CORS 설정 불필요).
+
+DB는 첫 실행 시 `datasets/`와 `DATA/sample/`에서 **자동 적재**됩니다. 별도 준비가 필요 없습니다.
+
+```
+[seed] 적재 완료: {'products': 8, 'suppliers': 3, 'purchase_orders': 10,
+                  'defects': 20, 'costs': 8, 'sales': 2000, 'returns': 184}
+```
+
+### 동작 확인
+
+```bash
+curl http://localhost:8000/health                    # {"status":"ok"}
+curl http://localhost:8000/api/dashboard | python3 -m json.tool
+```
+
+브라우저에서 **F12 → Network** 탭을 열고 새로고침하면 `/api/...` 요청이 보여야 합니다.
+탭을 전환할 때마다 새 요청이 뜨면 정상 연동입니다.
+
+🔴 **AI 분석을 눌렀을 때 응답의 `"fallback"`을 확인하세요.**
+
+| 값 | 의미 |
+|---|---|
+| `false` | **실제 LLM이 분석함** |
+| `true` | LLM 호출 실패 → 미리 작성된 고정 응답 |
+
+둘 다 HTTP 200이라 **화면만 봐서는 구분되지 않습니다.** 시연 전에 반드시 눈으로 확인하세요.
+
+### 테스트
+
+```bash
+cd BE && .venv/bin/python -m pytest -q          # 백엔드 지표·API
+cd .. && python3 -m unittest discover -s AI/tests -p "test_output_verification.py"
+python3 AI/tests/validate_output.py             # AI 출력 검증기
+```
+
+AI 검증 테스트에 `jsonschema`가 필요합니다 (없으면 해당 1건만 skip).
+
+```bash
+pip install -r AI/requirements.txt
+```
+
+### 자주 막히는 지점
+
+| 증상 | 원인·해결 |
+|---|---|
+| `Address already in use` | 8000 포트 사용 중 → `pkill -f uvicorn` 후 재실행 |
+| AI가 항상 `fallback: true` | `.env` 위치 확인 (**저장소 루트**), `LLM_API_KEY` 값 확인 |
+| `HTTP 404 ... no longer available` | 모델명 문제. `LLM_MODEL=gemini-3.8-flash`로 설정 |
+| AI 분석 시 `503` / `429` | 무료 티어 과부하·레이트리밋. **재시도가 자동 동작**하며, 끝내 실패하면 폴백 |
+| 화면은 뜨는데 숫자가 안 바뀜 | Network 탭에 `/api/` 요청이 없으면 연동 안 된 상태 |
+
+### 개발 시작 전에 읽을 것
+
+1. [`CONVENTIONS.md`](./CONVENTIONS.md) — 특히 **§1 누가 무엇을 정하는가**, **§6 숫자**
+2. 본인 영역 폴더의 README (`FE/` · `BE/` · `AI/` · `DATA/`)
+3. [`CONVENTIONS.md` §1 의존 순서](./CONVENTIONS.md) — 본인이 누구를 기다리는지
 
 ---
 
