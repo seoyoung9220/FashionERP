@@ -141,3 +141,13 @@ def test_profit_zero_net_sales_is_null():
     r = calc_profit(0, 0, 10000, 4000, 10.0, 0, 3000, 5000, 0)
     assert r["contribution_margin_pct"] is None
     assert any(n["code"] == "NOT_COMPUTABLE" for n in r["notes"])
+
+
+def test_reason_tie_keeps_data_order():
+    # 동률이면 먼저 나온 사유가 앞 (api.md: QUALITY_FINISH 5 → COLOR_IMAGE 5, FABRIC_FEEL 1 → DEFECTIVE 1)
+    r = calc_return_rate(243, 9, {"SIZE_FIT": 3, "CHANGE_OF_MIND": 3, "COLOR_IMAGE": 2, "DEFECTIVE": 1})
+    assert [x["code"] for x in r["reasons"]][:2] == ["SIZE_FIT", "CHANGE_OF_MIND"]
+    r = calc_return_rate(277, 57, {"SIZE_FIT": 22, "CHANGE_OF_MIND": 18, "QUALITY_FINISH": 5,
+                                   "COLOR_IMAGE": 5, "SHIPPING": 3, "OTHER": 2, "FABRIC_FEEL": 1, "DEFECTIVE": 1})
+    assert [x["code"] for x in r["reasons"]] == ["SIZE_FIT", "CHANGE_OF_MIND", "QUALITY_FINISH", "COLOR_IMAGE",
+                                                 "SHIPPING", "OTHER", "FABRIC_FEEL", "DEFECTIVE"]
