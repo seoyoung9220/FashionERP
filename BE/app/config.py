@@ -15,7 +15,10 @@ BE_DIR = Path(__file__).resolve().parents[1]   # .../FashionERP/BE
 REPO_DIR = BE_DIR.parent                        # .../FashionERP
 
 if load_dotenv:
-    load_dotenv(BE_DIR / ".env")
+    # .env 는 저장소 루트에 둡니다 (.env.example 과 같은 위치, CONVENTIONS §12).
+    # BE/.env 도 읽어 주되 루트가 우선입니다.
+    load_dotenv(REPO_DIR / ".env")
+    load_dotenv(BE_DIR / ".env", override=False)
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./fashion_erp.db")
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")

@@ -75,7 +75,9 @@ def test_exception_falls_back(conn):
     assert ai.analyze_returns(conn, "P002", FULL, caller=boom)["fallback"] is True
 
 
-def test_no_key_falls_back(conn):
+def test_no_key_falls_back(conn, monkeypatch):
+    # 키를 명시적으로 비운다. .env 유무(개발자 로컬 환경)에 테스트가 좌우되면 안 된다.
+    monkeypatch.setattr(ai, "LLM_API_KEY", "")
     assert ai.analyze_returns(conn, "P002", FULL)["fallback"] is True
 
 
