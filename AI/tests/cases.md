@@ -67,13 +67,59 @@ python -m unittest discover -s AI/tests -p "test_output_verification.py" -v
   `sample-output-P007.json`, `/api/returns/analyze` 실호출). 일시적 장애로 판단합니다.
 - 오분류: **측정 불가 (미실행)**
 
-> 🔴 **재실행 필요.** API가 복구되면 아래 명령 한 줄로 끝납니다. 결과가 나오면 이 절을 갱신하세요.
->
-> ```bash
-> python -m unittest discover -s AI/tests -p "test_return_classification.py" -v
-> ```
->
-> 케이스별 `expected` / `actual` / `일치·오분류`가 출력됩니다.
+**3차 (서영, 2026-10-24) — API 복구 후 실행 ✅**
+
+- 상태: **실행 완료**
+- 모델: `gemini-3.8-flash` · `temperature 0` · 소요 126초
+- 결과: **12개 중 11개 일치 (91.7%)**, 불일치 1건
+
+| case_id | 기대(고객 선택 사유) | 실제(LLM) | 결과 |
+|---|---|---|---|
+| category-size_fit | SIZE_FIT | SIZE_FIT | 일치 |
+| category-color_image | COLOR_IMAGE | COLOR_IMAGE | 일치 |
+| category-fabric_feel | FABRIC_FEEL | FABRIC_FEEL | 일치 |
+| category-quality_finish | QUALITY_FINISH | QUALITY_FINISH | 일치 |
+| category-defective | DEFECTIVE | DEFECTIVE | 일치 |
+| category-shipping | SHIPPING | SHIPPING | 일치 |
+| category-change_of_mind | CHANGE_OF_MIND | CHANGE_OF_MIND | 일치 |
+| category-other | OTHER | OTHER | 일치 |
+| edge-contradictory-fit | SIZE_FIT | SIZE_FIT | 일치 |
+| edge-cancelled-gift | CHANGE_OF_MIND | CHANGE_OF_MIND | 일치 |
+| edge-unspecified-reason | OTHER | OTHER | 일치 |
+| **edge-vague-expectation** | **CHANGE_OF_MIND** | **OTHER** | **오분류** |
+
+**8개 대표 문장은 전부 일치**했습니다. 경계 사례 4개 중 3개도 일치했습니다.
+
+### 불일치 1건 분석
+
+```
+문장:   "실물을 보니 생각했던 느낌이 아니네요"   (원본 22건)
+기대:   CHANGE_OF_MIND  (고객이 고른 사유, 22건 모두 '단순 변심')
+실제:   OTHER
+```
+
+**모델 오류로 단정하기 어려운 사례입니다.**
+
+- 이 문장에는 상품의 구체적 문제가 적혀 있지 않습니다. 사이즈·색상·원단 어느 것도 지목하지 않습니다
+- System 프롬프트가 **"구체적 근거가 없거나 분류할 수 없으면 OTHER"** 를 지시합니다.
+  그 지시에 따르면 `OTHER`가 오히려 **프롬프트에 충실한 판단**입니다
+- 반면 고객은 "상품에 하자는 없고 그냥 마음에 안 든다"는 뜻으로 `단순 변심`을 골랐습니다.
+  사람은 문장 뒤의 **의도**를 읽었고, 모델은 **문장에 적힌 근거**만 봤습니다
+
+이 문서 §2에 이미 적어둔 전제 그대로입니다 — 고객 선택 사유는 **사람이 검수한 정답 라벨이 아니라 비교 기준**입니다.
+
+### 판단 및 조치
+
+- **실무 영향 없음**: `CHANGE_OF_MIND`와 `OTHER` 모두 개선 체크리스트를 만들지 않는 범주입니다.
+  어느 쪽으로 분류되든 **사업자에게 제안되는 작업은 동일**합니다
+- **프롬프트 수정하지 않음**: `OTHER`로 보내는 쪽이 "근거 없이 단정하지 않는다"는 제품 원칙에 부합합니다.
+  억지로 맞추려 하면 근거 없는 문장까지 특정 범주로 밀어넣게 됩니다
+- 다만 **변심 비중이 과소집계될 수 있음**을 화면에서 인지해야 합니다.
+  변심은 상품 문제가 아니므로 대시보드 `top_actionable_reason`이 이미 변심을 제외하고 있습니다
+
+> 재실행: `python -m unittest discover -s AI/tests -p "test_return_classification.py" -v`
+> 테스트는 불일치가 1건이라도 있으면 **실패로 처리**합니다. 위 1건은 알려진 사례이며,
+> 새 불일치가 추가되면 그때 원인을 따로 분석해야 합니다.
 
 ### 비교 기준 및 범위
 - 8개 대표 문장은 각 `return_type_code`별 원본 자유 서술 중 가장 자주 등장한 문장으로 구성합니다.
