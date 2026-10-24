@@ -6,11 +6,15 @@
 - 상품명·카테고리는 products 표에서 가져오고, 주문번호는 원본과 같은 형식
   {상품ID}-{YYYYMMDD}-{일련번호 4자리} 로 자동으로 만듭니다.
 - 1주문 = 1장 (원본 데이터 quantity 가 모두 1, metrics.md 와 같은 가정)
+- 🔴 기준일(as_of)은 주문 데이터의 마지막 날짜입니다(utils.data_as_of). 미래 날짜 1건만으로도
+  기준일이 밀려 '최근 7일 판매'가 비고 재고가 모두 '판단 불가'가 되므로 오늘(KST) 이후 날짜는 거절하고,
+  기준일을 바꾸는 입력이면 경고를 돌려줍니다.
 """
 import sqlite3
 
 from app.errors import validation_failed
 from app.importers.loader import NA, _validate
+from app.utils import data_as_of, today_kst
 
 FORM = "입력 폼"
 
@@ -56,6 +60,14 @@ def add_order(conn: sqlite3.Connection, body: dict) -> dict:
     if errors:
         raise validation_failed("입력값을 확인해 주세요", errors)
     r = clean[0]
+    today, as_of = today_kst().isoformat(), data_as_of(conn).isoformat()
+    if str(r["date"]) > today:
+        raise validation_failed("입력값을 확인해 주세요",
+                                [{"file": FORM, "row": 1, "column": "date", "value": day,
+                                  "message": f"미래 날짜는 입력할 수 없습니다 (오늘 {today})"}])
+    if str(r["date"]) > as_of:
+        warnings.append({"file": FORM, "row": 1,
+                         "message": f"데이터 기준일이 {as_of} → {r['date']} 로 바뀌어 최근 기간 지표가 다시 계산됩니다"})
     conn.execute(
         """INSERT INTO sales (order_id, sold_at, product_id, product_name, category, size, color, qty)
            VALUES (?, ?, ?, ?, ?, ?, ?, 1)""",
