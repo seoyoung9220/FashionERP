@@ -7,7 +7,8 @@ from app.services import stock
 from app.services.dashboard import summary
 from app.services.profit_query import profit
 from app.services.quality import defect_rates
-from app.utils import data_as_of, period_ending
+from app.services.returns import return_rates
+from app.utils import data_as_of, data_start, period_ending
 
 
 @pytest.fixture
@@ -67,3 +68,15 @@ def test_dashboard_matches_mock_numbers(conn):
     assert d["profit"] == {"contribution_margin": 5092500, "contribution_margin_pct": 32.9, "negative_product_count": 1}
     assert d["returns"]["return_rate_pct"] == 9.2
     assert d["returns"]["top_actionable_reason"]["code"] == "SIZE_FIT"
+
+
+def test_return_rates_default_period_is_full_range(conn):
+    # 라우터 기본 기간 = data_start ~ data_as_of (전체 데이터 기간) → metrics.md 기준값과 같아야 함
+    assert (data_start(conn).isoformat(), data_as_of(conn).isoformat()) == ("2026-01-10", "2026-10-24")
+    r = return_rates(conn, data_start(conn).isoformat(), data_as_of(conn).isoformat())
+    p = {i["product_id"]: (i["order_count"], i["return_count"], i["return_rate_pct"]) for i in r["items"]}
+    assert p["P002"] == (277, 57, 20.6)
+    assert p["P004"] == (240, 41, 17.1) and p["P008"] == (235, 37, 15.7) and p["P007"] == (259, 6, 2.3)
+    assert sum(v[0] for v in p.values()) == 2000 and sum(v[1] for v in p.values()) == 184
+    # 대시보드 worst_product 와 같은 숫자
+    assert summary(conn, data_as_of(conn), *period_ending(data_as_of(conn), 30))["returns"]["worst_product"]["return_rate_pct"] == p["P002"][2]
