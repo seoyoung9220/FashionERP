@@ -1,0 +1,92 @@
+{
+  "period": {
+    "from": "2026-09-25",
+    "to": "2026-10-24"
+  },
+  "basis": "net_sales",
+  "total": {
+    "net_sales": 15485000,
+    "gross_sales": 17364000,
+    "category_count": 3,
+    "check_sum_net_sales": true
+  },
+  "items": [
+    {
+      "category": "아우터",
+      "product_count": 4,
+      "product_ids": [
+        "P001",
+        "P003",
+        "P004",
+        "P008"
+      ],
+      "order_count": 114,
+      "gross_sales": 12716000,
+      "net_sales": 11427000,
+      "share_pct": 73.8,
+      "gross_share_pct": 73.2,
+      "contribution_margin": 4221300,
+      "contribution_margin_pct": 36.9,
+      "missing_costs": [],
+      "inputs": {
+        "net_sales": 11427000,
+        "total_net_sales": 15485000
+      },
+      "formula": "11,427,000 ÷ 15,485,000 × 100 = 73.8%",
+      "notes": []
+    },
+    {
+      "category": "하의/치마",
+      "product_count": 2,
+      "product_ids": [
+        "P002",
+        "P005"
+      ],
+      "order_count": 57,
+      "gross_sales": 3248000,
+      "net_sales": 2658000,
+      "share_pct": 17.2,
+      "gross_share_pct": 18.7,
+      "contribution_margin": 681200,
+      "contribution_margin_pct": 25.6,
+      "missing_costs": [],
+      "inputs": {
+        "net_sales": 2658000,
+        "total_net_sales": 15485000
+      },
+      "formula": "2,658,000 ÷ 15,485,000 × 100 = 17.2%",
+      "notes": []
+    },
+    {
+      "category": "상의/셔츠",
+      "product_count": 2,
+      "product_ids": [
+        "P006",
+        "P007"
+      ],
+      "order_count": 32,
+      "gross_sales": 1400000,
+      "net_sales": 1400000,
+      "share_pct": 9.0,
+      "gross_share_pct": 8.1,
+      "contribution_margin": 190000,
+      "contribution_margin_pct": 13.6,
+      "missing_costs": [
+        "ad_cost"
+      ],
+      "inputs": {
+        "net_sales": 1400000,
+        "total_net_sales": 15485000
+      },
+      "formula": "1,400,000 ÷ 15,485,000 × 100 = 9.0%",
+      "notes": [
+        {
+          "code": "MISSING_COST",
+          "message": "일부 비용 미입력"
+        }
+      ]
+    }
+  ],
+  "formula": "카테고리 비중 = 카테고리 순매출 ÷ 전체 순매출 × 100 (순매출 = 총매출 − 반품 금액, metrics.md §3)",
+  "notes": []
+}

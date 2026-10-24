@@ -1,0 +1,114 @@
+{
+  "period": {
+    "from": "2026-10-18",
+    "to": "2026-10-24"
+  },
+  "basis": "order_date",
+  "total": {
+    "order_count": 58,
+    "gross_sales": 5533000,
+    "net_sales": 4894000
+  },
+  "items": [
+    {
+      "date": "2026-10-18",
+      "order_count": 9,
+      "return_count": 1,
+      "gross_sales": 1029000,
+      "return_amount": 189000,
+      "net_sales": 840000,
+      "inputs": {
+        "order_count": 9,
+        "return_count": 1
+      },
+      "formula": "총매출 1,029,000 − 반품 189,000 = 순매출 840,000원",
+      "notes": []
+    },
+    {
+      "date": "2026-10-19",
+      "order_count": 11,
+      "return_count": 2,
+      "gross_sales": 961000,
+      "return_amount": 127000,
+      "net_sales": 834000,
+      "inputs": {
+        "order_count": 11,
+        "return_count": 2
+      },
+      "formula": "총매출 961,000 − 반품 127,000 = 순매출 834,000원",
+      "notes": []
+    },
+    {
+      "date": "2026-10-20",
+      "order_count": 3,
+      "return_count": 1,
+      "gross_sales": 476000,
+      "return_amount": 98000,
+      "net_sales": 378000,
+      "inputs": {
+        "order_count": 3,
+        "return_count": 1
+      },
+      "formula": "총매출 476,000 − 반품 98,000 = 순매출 378,000원",
+      "notes": []
+    },
+    {
+      "date": "2026-10-21",
+      "order_count": 10,
+      "return_count": 0,
+      "gross_sales": 823000,
+      "return_amount": 0,
+      "net_sales": 823000,
+      "inputs": {
+        "order_count": 10,
+        "return_count": 0
+      },
+      "formula": "총매출 823,000 − 반품 0 = 순매출 823,000원",
+      "notes": []
+    },
+    {
+      "date": "2026-10-22",
+      "order_count": 9,
+      "return_count": 1,
+      "gross_sales": 1009000,
+      "return_amount": 59000,
+      "net_sales": 950000,
+      "inputs": {
+        "order_count": 9,
+        "return_count": 1
+      },
+      "formula": "총매출 1,009,000 − 반품 59,000 = 순매출 950,000원",
+      "notes": []
+    },
+    {
+      "date": "2026-10-23",
+      "order_count": 7,
+      "return_count": 1,
+      "gross_sales": 690000,
+      "return_amount": 98000,
+      "net_sales": 592000,
+      "inputs": {
+        "order_count": 7,
+        "return_count": 1
+      },
+      "formula": "총매출 690,000 − 반품 98,000 = 순매출 592,000원",
+      "notes": []
+    },
+    {
+      "date": "2026-10-24",
+      "order_count": 9,
+      "return_count": 1,
+      "gross_sales": 545000,
+      "return_amount": 68000,
+      "net_sales": 477000,
+      "inputs": {
+        "order_count": 9,
+        "return_count": 1
+      },
+      "formula": "총매출 545,000 − 반품 68,000 = 순매출 477,000원",
+      "notes": []
+    }
+  ],
+  "formula": "일별 순매출 = Σ(그날 주문 × 판매가) − Σ(그날 주문 중 반품 × 판매가)",
+  "notes": []
+}

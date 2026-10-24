@@ -1,0 +1,17 @@
+{
+  "order": {
+    "order_id": "P007-20261024-0001",
+    "date": "2026-10-24",
+    "product_id": "P007",
+    "product_name": "심플 로고 맨투맨",
+    "category": "상의/셔츠",
+    "size": "L",
+    "color": "Gray",
+    "qty": 1,
+    "is_returned": 1,
+    "return_type_code": "SIZE_FIT",
+    "return_detail_text": "생각보다 작아요"
+  },
+  "return_id": "R0185",
+  "warnings": []
+}

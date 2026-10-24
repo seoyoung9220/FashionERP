@@ -1,0 +1,199 @@
+{
+  "as_of": "2026-10-24",
+  "window_days": 7,
+  "basis": "order_count",
+  "current_period": {
+    "from": "2026-10-18",
+    "to": "2026-10-24"
+  },
+  "previous_period": {
+    "from": "2026-10-11",
+    "to": "2026-10-17"
+  },
+  "rule_defined": false,
+  "suggested_rule": "제안(미적용): 최근 7일 주문 ≥ 직전 7일 주문 × 1.5 이고 직전 7일 주문 ≥ 5건 — 불량률 급증과 같은 1.5배 기준. metrics.md 에 판매 급증 정의가 없어 팀 합의 전에는 판정하지 않습니다",
+  "items": [
+    {
+      "product_id": "P001",
+      "product_name": "오버핏 울 코트",
+      "category": "아우터",
+      "current_orders": 15,
+      "previous_orders": 4,
+      "change": 11,
+      "change_pct": 275.0,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(15 − 4) ÷ 4 × 100 = 275.0%",
+      "notes": []
+    },
+    {
+      "product_id": "P007",
+      "product_name": "심플 로고 맨투맨",
+      "category": "상의/셔츠",
+      "current_orders": 5,
+      "previous_orders": 3,
+      "change": 2,
+      "change_pct": 66.7,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(5 − 3) ÷ 3 × 100 = 66.7%",
+      "notes": []
+    },
+    {
+      "product_id": "P004",
+      "product_name": "크롭 니트 가디건",
+      "category": "아우터",
+      "current_orders": 9,
+      "previous_orders": 6,
+      "change": 3,
+      "change_pct": 50.0,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(9 − 6) ÷ 6 × 100 = 50.0%",
+      "notes": []
+    },
+    {
+      "product_id": "P006",
+      "product_name": "루즈핏 스웨트셔츠",
+      "category": "상의/셔츠",
+      "current_orders": 4,
+      "previous_orders": 3,
+      "change": 1,
+      "change_pct": 33.3,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(4 − 3) ÷ 3 × 100 = 33.3%",
+      "notes": []
+    },
+    {
+      "product_id": "P002",
+      "product_name": "와이드 데님 팬츠",
+      "category": "하의/치마",
+      "current_orders": 10,
+      "previous_orders": 9,
+      "change": 1,
+      "change_pct": 11.1,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(10 − 9) ÷ 9 × 100 = 11.1%",
+      "notes": []
+    },
+    {
+      "product_id": "P003",
+      "product_name": "패딩 베스트",
+      "category": "아우터",
+      "current_orders": 5,
+      "previous_orders": 6,
+      "change": -1,
+      "change_pct": -16.7,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(5 − 6) ÷ 6 × 100 = -16.7%",
+      "notes": []
+    },
+    {
+      "product_id": "P005",
+      "product_name": "플리츠 롱스커트",
+      "category": "하의/치마",
+      "current_orders": 6,
+      "previous_orders": 8,
+      "change": -2,
+      "change_pct": -25.0,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(6 − 8) ÷ 8 × 100 = -25.0%",
+      "notes": []
+    },
+    {
+      "product_id": "P008",
+      "product_name": "기모 후드 집업",
+      "category": "아우터",
+      "current_orders": 4,
+      "previous_orders": 8,
+      "change": -4,
+      "change_pct": -50.0,
+      "is_surge": null,
+      "inputs": {
+        "current_period": {
+          "from": "2026-10-18",
+          "to": "2026-10-24"
+        },
+        "previous_period": {
+          "from": "2026-10-11",
+          "to": "2026-10-17"
+        }
+      },
+      "formula": "(4 − 8) ÷ 8 × 100 = -50.0%",
+      "notes": []
+    }
+  ],
+  "notes": [
+    {
+      "code": null,
+      "message": "판매 급증 기준이 metrics.md 에 없어 증가율만 제공하고 급증 여부는 판정하지 않습니다"
+    }
+  ]
+}
