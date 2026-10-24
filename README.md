@@ -355,6 +355,7 @@ FashionERP/
 | 문서 | 소유자 | 설명 |
 |---|---|---|
 | [AI_패션_ERP_필수기능_축소안.md](./AI_패션_ERP_필수기능_축소안.md) | — | **기획서** — 1일 구현 범위, 지표 공식, 역할 분담 |
+| [ROADMAP.md](./ROADMAP.md) | — | **확장 로드맵** — 무엇을 남겨뒀고 다시 붙이려면 무엇이 필요한지 |
 | [CONVENTIONS.md](./CONVENTIONS.md) | 전원 | 🔴 **먼저 읽을 것** — JSON 규약, 소유권 표, 브랜치 규칙, 통합 체크리스트 |
 | [FE/README.md](./FE/README.md) | 윤지 | 화면 목록, 공통 컴포넌트, FE 규칙 |
 | [BE/README.md](./BE/README.md) | 태연 | 테이블 8개, 실행 방법 |
